@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: telegram-keybot-site
+    runtime: python
+    buildCommand: ""
+    startCommand: python site.py
+    envVars:
+      - key: PORT
+        value: 10000
+    autoDeploy: false

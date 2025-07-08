@@ -1,0 +1,21 @@
+{
+    "short_name": "1win",
+    "name": "1win",
+    "icons": [
+      {
+        "sizes": "192x192",
+        "src": "https://1wine.life/play/1win.jpg",
+        "type": "image/png"
+    },
+    {
+        "sizes": "512x512",
+        "src": "https://1waufy.com/img/icons/android-chrome-512x512.png",
+        "type": "image/png"
+    }
+    ],
+    "start_url": "index.html",
+    "display": "standalone",
+    "theme_color": "#090f1e",
+    "background_color": "#090f1e"
+  }
+  

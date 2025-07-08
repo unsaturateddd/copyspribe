@@ -1,0 +1,264 @@
+#grid {
+  position: relative;
+  z-index: 1;
+  
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, auto);
+
+  user-select: none;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+
+  width: 90vw;
+  max-width: 450px;
+  margin: auto;
+  gap: 5px;
+
+  transition: margin 0.3s ease;
+}
+
+
+
+@media (min-width: 769px) {
+  #grid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    gap: 5px;
+    z-index: 1000;
+    margin-left: -210px;
+    margin-top: -185px;
+
+  }
+}
+
+
+#grid.mobile {
+  width: 90vw;
+  max-width: none;
+  margin-top: 13vh;
+  gap: 5px;
+}
+
+.cell {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform-origin: center center;
+}
+
+.cell::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('mines.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+#grid.desktop .cell.mine-shown::before,
+#grid.mobile .cell.mine-shown::before {
+  background-image: url('mina.png') !important;
+  opacity: 1 !important;
+}
+
+#grid.desktop .cell.win-shown::before,
+#grid.mobile .cell.win-shown::before {
+  background-image: url('win.png') !important;
+  opacity: 1 !important;
+}
+
+.cell::after {
+  content: "";
+  display: block;
+  padding-bottom: calc(58 / 76 * 100%);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+
+
+.cell > .content {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+}
+
+#grid.desktop .cell {
+  min-width: 76px;
+  min-height: 58px;
+}
+
+#grid.mobile .cell {
+  min-width: 56px;
+  min-height: 42px;
+}
+
+#grid.desktop .cell.mines-active::before {
+  background-image: url('mines1.png');
+  opacity: 1;
+}
+
+#grid.mobile .cell.mines-active::before {
+  background-image: url('mines1.png');
+  opacity: 1;
+}
+
+#grid.desktop .cell.mines-default::before {
+  background-image: url('mines.png');
+  opacity: 1;
+}
+
+#grid.mobile .cell.mines-default::before {
+  background-image: url('mines.png');
+  opacity: 1;
+}
+
+.cell.mines-active.transparent::before {
+  opacity: 0;
+}
+
+.cell.opened {
+  background-image: none !important;
+  cursor: default;
+}
+
+.cell .mask {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background-image: url('mask.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5px;
+  pointer-events: none;
+  z-index: 2;
+
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+
+  transition:
+    transform 0.05s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.05s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.cell .mask.open {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn.btn-control.btn-bet.btn-green {
+  position: relative;
+  padding: 12px 24px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cashout-text {
+  margin-bottom: 6px;
+  line-height: 1;
+  font-size: 15px;
+  font-weight: 400;
+  position: relative;
+  top: -4px;
+}
+
+
+.bet-win-indicator {
+  position: relative;
+  top: -8px;
+  padding: 0px 8px;
+  background: rgba(0, 0, 0, 0.486);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  width: max-content;
+  min-width: 70px;
+  text-align: center;
+}
+
+.cell.shrink {
+  transform: scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cell.expand {
+  transform: scaleX(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.win-amount-box {
+  position: absolute;
+  top: 4px;
+  left: 720px;
+  background-color: #15902d;
+  border: 1px solid #0e2d16;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 10;
+  min-width: auto;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.win-amount-box.show {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .win-amount-box {
+    opacity: 1 !important;
+    background-color: #15902d;
+    border: 1px solid #0e2d16;
+    font-size: 10px !important;
+    padding: 4px 6px !important;
+    line-height: 1 !important;
+    left: auto !important;
+    right: 125px !important;
+    top: 3px !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+  }
+}
+
+
+.progress-bar.bg-success {
+  transition: width 0.3s ease;
+}
+

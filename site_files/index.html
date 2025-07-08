@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Mines</title>
+        <link rel="stylesheet" href="mines-style.css" />
+        <link rel="stylesheet" href="style/menu.css" />
+        <link rel="manifest" href="manifest.json">
+        <base href="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <style type="text/css">
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3iUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3CUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+1F00-1FFF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3-UBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0310, U+0312, U+0315, U+031A, U+0326-0327, U+032C, U+032F-0330, U+0332-0333, U+0338, U+033A, U+0346, U+034D, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2016-2017, U+2034-2038, U+203C, U+2040, U+2043, U+2047, U+2050, U+2057, U+205F, U+2070-2071, U+2074-208E, U+2090-209C, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2100-2112, U+2114-2115, U+2117-2121, U+2123-214F, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B7, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+3030, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8BB, U+1F8C0-1F8C1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA89, U+1FA8F-1FAC6, U+1FACE-1FADC, U+1FADF-1FAE9, U+1FAF0-1FAF8, U+1FB00-1FBFF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2) format('woff2');
+                unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3iUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3CUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+1F00-1FFF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3-UBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0302-0303, U+0305, U+0307-0308, U+0310, U+0312, U+0315, U+031A, U+0326-0327, U+032C, U+032F-0330, U+0332-0333, U+0338, U+033A, U+0346, U+034D, U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+03D1, U+03D5-03D6, U+03F0-03F1, U+03F4-03F5, U+2016-2017, U+2034-2038, U+203C, U+2040, U+2043, U+2047, U+2050, U+2057, U+205F, U+2070-2071, U+2074-208E, U+2090-209C, U+20D0-20DC, U+20E1, U+20E5-20EF, U+2100-2112, U+2114-2115, U+2117-2121, U+2123-214F, U+2190, U+2192, U+2194-21AE, U+21B0-21E5, U+21F1-21F2, U+21F4-2211, U+2213-2214, U+2216-22FF, U+2308-230B, U+2310, U+2319, U+231C-2321, U+2336-237A, U+237C, U+2395, U+239B-23B7, U+23D0, U+23DC-23E1, U+2474-2475, U+25AF, U+25B3, U+25B7, U+25BD, U+25C1, U+25CA, U+25CC, U+25FB, U+266D-266F, U+27C0-27FF, U+2900-2AFF, U+2B0E-2B11, U+2B30-2B4C, U+2BFE, U+3030, U+FF5B, U+FF5D, U+1D400-1D7FF, U+1EE00-1EEFF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0001-000C, U+000E-001F, U+007F-009F, U+20DD-20E0, U+20E2-20E4, U+2150-218F, U+2190, U+2192, U+2194-2199, U+21AF, U+21E6-21F0, U+21F3, U+2218-2219, U+2299, U+22C4-22C6, U+2300-243F, U+2440-244A, U+2460-24FF, U+25A0-27BF, U+2800-28FF, U+2921-2922, U+2981, U+29BF, U+29EB, U+2B00-2BFF, U+4DC0-4DFF, U+FFF9-FFFB, U+10140-1018E, U+10190-1019C, U+101A0, U+101D0-101FD, U+102E0-102FB, U+10E60-10E7E, U+1D2C0-1D2D3, U+1D2E0-1D37F, U+1F000-1F0FF, U+1F100-1F1AD, U+1F1E6-1F1FF, U+1F30D-1F30F, U+1F315, U+1F31C, U+1F31E, U+1F320-1F32C, U+1F336, U+1F378, U+1F37D, U+1F382, U+1F393-1F39F, U+1F3A7-1F3A8, U+1F3AC-1F3AF, U+1F3C2, U+1F3C4-1F3C6, U+1F3CA-1F3CE, U+1F3D4-1F3E0, U+1F3ED, U+1F3F1-1F3F3, U+1F3F5-1F3F7, U+1F408, U+1F415, U+1F41F, U+1F426, U+1F43F, U+1F441-1F442, U+1F444, U+1F446-1F449, U+1F44C-1F44E, U+1F453, U+1F46A, U+1F47D, U+1F4A3, U+1F4B0, U+1F4B3, U+1F4B9, U+1F4BB, U+1F4BF, U+1F4C8-1F4CB, U+1F4D6, U+1F4DA, U+1F4DF, U+1F4E3-1F4E6, U+1F4EA-1F4ED, U+1F4F7, U+1F4F9-1F4FB, U+1F4FD-1F4FE, U+1F503, U+1F507-1F50B, U+1F50D, U+1F512-1F513, U+1F53E-1F54A, U+1F54F-1F5FA, U+1F610, U+1F650-1F67F, U+1F687, U+1F68D, U+1F691, U+1F694, U+1F698, U+1F6AD, U+1F6B2, U+1F6B9-1F6BA, U+1F6BC, U+1F6C6-1F6CF, U+1F6D3-1F6D7, U+1F6E0-1F6EA, U+1F6F0-1F6F3, U+1F6F7-1F6FC, U+1F700-1F7FF, U+1F800-1F80B, U+1F810-1F847, U+1F850-1F859, U+1F860-1F887, U+1F890-1F8AD, U+1F8B0-1F8BB, U+1F8C0-1F8C1, U+1F900-1F90B, U+1F93B, U+1F946, U+1F984, U+1F996, U+1F9E9, U+1FA00-1FA6F, U+1FA70-1FA7C, U+1FA80-1FA89, U+1FA8F-1FAC6, U+1FACE-1FADC, U+1FADF-1FAE9, U+1FAF0-1FAF8, U+1FB00-1FBFF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBHMdazTgWw.woff2) format('woff2');
+                unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+            }
+
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 700;
+                font-stretch: 100%;
+                font-display: swap;
+                src: url(fonts/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2) format('woff2');
+                unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            }
+        </style>
+        <style>
+            body {
+                background: #000000;
+            }
+
+            .main-loading-logo-base64 {
+                background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzRweCIgaGVpZ2h0PSIzMXB4IiB2aWV3Qm94PSIwIDAgNzQgMzEiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDU4ICg4NDY2MykgLSBodHRwczovL3NrZXRjaC5jb20gLS0+CiAgICA8dGl0bGU+c3ByaWJlLWxvZ28gMjwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJzcHJpYmUtbG9nby0yIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iPgogICAgICAgICAgICA8ZyBpZD0ic3ByaWJlLWxvZ28iPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTAuMTA1MjM3NDE3LDE5LjQwMDU2OTcgTDAuMTA1MjM3NDE3LDE3Ljg3NjkzMDMgTDQuMTA0Nzg2MzIsMTcuODc2OTMwMyBMNC4xMDQ3ODYzMiwxOS42NTAxMTYyIEM0LjEwNDc4NjMyLDIxLjI3MzA0NyA0LjcyODQ4MDUzLDIyLjA4NDk1MTggNS45NzQ5OTA1LDIyLjA4NDk1MTggTDUuOTkwODAyNDcsMjIuMDg0OTUxOCBDNy4yMjU4OTI2OSwyMi4wODQ5NTE4IDcuODQ0MzE2MjQsMjEuMjc1NjgzMSA3Ljg0NDMxNjI0LDE5LjY1ODAyNDQgQzcuODQ0MzE2MjQsMTguNzMzNjQ3OSA3LjU3ODE0ODE0LDE3Ljg2NzI2NDggNy4wNDQwNTUwOCwxNy4wNTc5OTYgQzYuNTEwODQwNDUsMTYuMjQ4NzI3MyA1Ljg3MzA5MTE2LDE1LjUwODg3NDcgNS4xMzA4MDcyMiwxNC44Mzg0MzgyIEwzLjEyNjIwMTMzLDEyLjc1ODU5MTMgQzIuMjk3ODMwMDEsMTIuMDMxMDQwMyAxLjYwNDczODg0LDExLjEyOTUwOTYgMS4wNDY5Mjc4MywxMC4wNTQ4NzgxIEMwLjQ4ODIzODM2Nyw4Ljk3OTM2NzkxIDAuMjA4ODkzNjM3LDcuNzg4NzUgMC4yMDg4OTM2MzcsNi40ODMwMjQzOCBDMC4yMDg4OTM2MzcsNC40NzM0NzIyMyAwLjczNTk1OTE2NCwyLjkzMjI1OTA3IDEuNzkwMDkwMjIsMS44NTc2Mjc1NSBDMi44NDMzNDI4MywwLjc4Mjk5NjAzMSA0LjI3NTIwNDE4LDAuMjQ2MTE5NjE0IDYuMDgzOTE3MzgsMC4yNDYxMTk2MTQgQzcuODkyNjMwNTgsMC4yNDYxMTk2MTQgOS4yODE0NDgyNCwwLjc4Mjk5NjAzMSAxMC4yNTEyNDg4LDEuODU2NzQ4ODYgQzExLjIyMTA0OTQsMi45MzA1MDE3IDExLjcwNTk0OTYsNC40NzE3MTQ4NiAxMS43MDU5NDk2LDYuNDgwMzg4MzIgTDExLjcwNTk0OTYsNy4yNzczNTU0NCBMOC4wMTczNjk0Miw3LjI3NzM1NTQ0IEw4LjAxNzM2OTQyLDYuMjM4NzUgQzguMDE3MzY5NDIsNC42MTA1NDcwNSA3LjM2NTU2NTA2LDMuNzk2MDA2MjMgNi4wNjEwNzc4OCwzLjc5NjAwNjIzIEM0Ljc1NjU5MDcsMy43OTYwMDYyMyA0LjEwNDc4NjMyLDQuNjExNDI1NzQgNC4xMDQ3ODYzMiw2LjI0MDUwNzM3IEM0LjEwNDc4NjMyLDYuOTIyMzY2NzggNC4yNDcwOTQwMSw3LjU3MjU5MzU0IDQuNTMwODMwOTYsOC4xOTExODc2NCBDNC44MTQ1Njc5LDguODA5NzgxNzUgNS4xODI2MzUzMyw5LjM2Njg2NzkxIDUuNjM1MDMzMjQsOS44NjQyMDM1MSBDNi4wODc0MzExNSwxMC4zNjA2NjA1IDYuNTg2Mzg2NTIsMTAuODUxODQ1MiA3LjEzMTAyMDg5LDExLjMzNjg3OTMgQzcuNjc1NjU1MjcsMTEuODIyNzkyIDguMjE0MTQwNTUsMTIuMzMxNTUwNSA4Ljc0NDcxOTg1LDEyLjg2MzE1NDggQzkuMjc1Mjk5MTQsMTMuMzk0NzU5MSA5Ljc2NjM0ODUzLDEzLjk2MzI2ODEgMTAuMjE2OTg5NiwxNC41NzA0Mzk0IEMxMC42NjY3NTIxLDE1LjE3NjczMTkgMTEuMDMzMDYyNywxNS44OTM3Mzg2IDExLjMxNTkyMTIsMTYuNzE5NzAyMyBDMTEuNTk4Nzc5NiwxNy41NDY1NDQ4IDExLjc0MDIwODksMTguNDQ0NTYwNiAxMS43NDAyMDg5LDE5LjQxNTUwNzQgQzExLjc0MDIwODksMjEuNDE5Nzg3NCAxMS4yNDM4ODg5LDIyLjk1NzQ4NTkgMTAuMjUxMjQ4OCwyNC4wMjg2MDI2IEM5LjI1ODYwODc0LDI1LjA5OTcxOTQgNy44NTc0OTI4OCwyNS42MzU3MTcxIDYuMDQ3OTAxMjMsMjUuNjM1NzE3MSBDNC4yMzgzMDk1OSwyNS42MzU3MTcxIDIuNzk1MDI4NDksMjUuMDk4ODQwNyAxLjcxODkzNjM3LDI0LjAyNTA4NzggQzAuNjQyODQ0MjU0LDIyLjk1MTMzNSAwLjEwNTIzNzQxNywyMS40MDkyNDMxIDAuMTA1MjM3NDE3LDE5LjQwMDU2OTciIGlkPSJGaWxsLTEiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xNy44NTIwNjA3LDEyLjQ5MDQxNjcgTDE5LjcwNDY5NjIsMTIuNDkwNDE2NyBDMjAuMzM4OTMxNywxMi40OTA0MTY3IDIwLjgxNTA0NzUsMTIuMzExMTY1IDIxLjEzMzA0MzYsMTEuOTUzNTQwMyBDMjEuNDUwMTYxNSwxMS41OTU5MTU1IDIxLjYwOTE1OTUsMTAuOTg5NjIzIDIxLjYwOTE1OTUsMTAuMTM0NjYyNyBMMjEuNjA5MTU5NSw2LjQxMTY3NTE3IEMyMS42MDkxNTk1LDUuNTU2NzE0ODYgMjEuNDUwMTYxNSw0Ljk1MzkzNzA3IDIxLjEzMzA0MzYsNC42MDE1ODQ0NyBDMjAuODE1MDQ3NSw0LjI0OTIzMTg2IDIwLjMzODkzMTcsNC4wNzM0OTQ5IDE5LjcwNDY5NjIsNC4wNzM0OTQ5IEwxNy44NTIwNjA3LDQuMDczNDk0OSBMMTcuODUyMDYwNywxMi40OTA0MTY3IFogTTEzLjk1NjE2ODEsMjUuMzU3ODc3IEwxMy45NTYxNjgxLDAuNTIzNjA4Mjc3IEwxOS42OTU5MTE2LDAuNTIzNjA4Mjc3IEMyMy41NjgwODY0LDAuNTIzNjA4Mjc3IDI1LjUwNTA1MjIsMi41NzUzMzczIDI1LjUwNTA1MjIsNi42Nzc5MTY2NyBMMjUuNTA1MDUyMiw5LjkwMzU2ODU5IEMyNS41MDUwNTIyLDEzLjk5NDcyNSAyMy41Njk4NDMzLDE2LjA0MTE4MiAxOS43MDAzMDM4LDE2LjA0MTE4MiBMMTcuODUyMDYwNywxNi4wNDExODIgTDE3Ljg1MjA2MDcsMjUuMzU3ODc3IEwxMy45NTYxNjgxLDI1LjM1Nzg3NyBaIiBpZD0iRmlsbC00Ij48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMzEuMjE4NDQyNiwxMS43MTExMTExIEwzMi43NDE2NjE5LDExLjcxMTExMTEgQzMzLjUyNjk4OTYsMTEuNzExMTExMSAzNC4xMTI5MTA4LDExLjUwOTAxMzYgMzQuNDk5NDI1NCwxMS4xMDQ4MTg2IEMzNC44ODU5NDAxLDEwLjcwMDYyMzYgMzUuMDc5MTk3NSwxMC4wMjU3OTM2IDM1LjA3OTE5NzUsOS4wNzg1NzE0MyBMMzUuMDc5MTk3NSw2LjYzNjcwNjM1IEMzNS4wOTA2MTczLDQuOTI4NTQzMDggMzQuNDMyNjYzOCw0LjA3MzU4Mjc3IDMzLjEwNTMzNzEsNC4wNzM1ODI3NyBMMzEuMjE4NDQyNiw0LjA3MzU4Mjc3IEwzMS4yMTg0NDI2LDExLjcxMTExMTEgWiBNMjcuMzIyNTQ5OSwyNS4zNTc5NjQ5IEwyNy4zMjI1NDk5LDAuNTIyODE3NDYgTDMzLjIwMTA4NzQsMC41MjI4MTc0NiBDMzUuMjA1NjkzMiwwLjUyMjgxNzQ2IDM2LjY3MDA1NywwLjk5MTE1NjQ2MiAzNy41OTE1NDMzLDEuOTI2OTU1NzggQzM4LjUxMzkwNzksMi44NjI3NTUxIDM4Ljk3NTA5MDIsNC4zMDExNjIxNCAzOC45NzUwOTAyLDYuMjQyMTc2ODcgTDM4Ljk3NTA5MDIsOC4xOTk4ODY2MiBDMzguOTc1MDkwMiwxMC43NTMzNDQ3IDM4LjEyNDc1NzksMTIuNDM0MjY4NyAzNi40MjQwOTMsMTMuMjQyNjU4NyBDMzguMTQ3NTk3MywxMy45NzEwODg1IDM5LjAwOTM0OTQsMTUuNzMyODUxNCAzOS4wMDkzNDk0LDE4LjUyODgyNjUgTDM5LjAwOTM0OTQsMjIuMzUwMjI2OCBMMzkuMDA5MzQ5NCwyMi41MDU3NTQgQzM5LjAwOTM0OTQsMjMuNzczNjk2MSAzOS4xNDgxNDM0LDI0LjcyNDQzMzEgMzkuNDI0ODUyOCwyNS4zNTc5NjQ5IEwzNS40NzUzNzUxLDI1LjM1Nzk2NDkgQzM1LjI0NjEwMTYsMjQuNjU1MDE3IDM1LjEyNTc1NSwyMy42NDEwMTQ4IDM1LjExNDMzNTIsMjIuMzE1MDc5NCBMMzUuMTE0MzM1MiwxOC40MjUxNDE3IEMzNS4xMTQzMzUyLDE3LjI5NjAzMTcgMzQuOTE0OTI4OCwxNi40ODU4ODQzIDM0LjUxNjk5NDMsMTUuOTk2NDU2OSBDMzQuMTE4MTgxNCwxNS41MDYxNTA4IDMzLjQ2OTAxMjMsMTUuMjYxODc2NCAzMi41Njg2MDg4LDE1LjI2MTg3NjQgTDMxLjIxODQ0MjYsMTUuMjYxODc2NCBMMzEuMjE4NDQyNiwyNS4zNTc5NjQ5IEwyNy4zMjI1NDk5LDI1LjM1Nzk2NDkgWiIgaWQ9IkZpbGwtNiI+PC9wYXRoPgogICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IkZpbGwtOCIgcG9pbnRzPSI0MS41NzIyOTM0IDI1LjM1ODE0MDYgNDUuNDY4MTg2MSAyNS4zNTgxNDA2IDQ1LjQ2ODE4NjEgMC41MjI5OTMxOTcgNDEuNTcyMjkzNCAwLjUyMjk5MzE5NyI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTUyLjIwMjk0MTYsMjEuODA3OTAyNSBMNTQuNDM2ODIxLDIxLjgwNzkwMjUgQzU1LjExNzYxMzksMjEuODA3OTAyNSA1NS42MjUzNTM3LDIxLjYyNjAxNDggNTUuOTYwMDQwMywyMS4yNjIyMzkyIEM1Ni4yOTQ3MjcsMjAuODk4NDYzNyA1Ni40NjI1MDk1LDIwLjI2NjY4OTQgNTYuNDYyNTA5NSwxOS4zNjYwMzc0IEw1Ni40NjI1MDk1LDE3LjIwMDk1OCBDNTYuNDYyNTA5NSwxNi4wNjkyMTIgNTYuMjY5MjUyMSwxNS4yODQ1NDY1IDU1Ljg4MTg1OSwxNC44NDYwODI4IEM1NS40OTUzNDQzLDE0LjQwNjc0MDQgNTQuODUyMzI0NCwxNC4xODc5NDc4IDUzLjk1MTkyMDcsMTQuMTg3OTQ3OCBMNTIuMjAyOTQxNiwxNC4xODc5NDc4IEw1Mi4yMDI5NDE2LDIxLjgwNzkwMjUgWiBNNTIuMjAyOTQxNiwxMC42MzcxODI1IEw1My43MzMxODg1LDEwLjYzNzE4MjUgQzU0LjUyMTE1MTQsMTAuNjM3MTgyNSA1NS4xMDk3MDgsMTAuNDM1MDg1IDU1LjQ5Nzk3OTYsMTAuMDMwODkgQzU1Ljg4NzEyOTcsOS42MjY2OTUwMSA1Ni4wODEyNjU1LDguOTU3MTM3MTkgNTYuMDgxMjY1NSw4LjAyMjIxNjU1IEw1Ni4wODEyNjU1LDYuNjM2NTMwNjEgQzU2LjA5MjY4NTIsNC45MjgzNjczNSA1NS40MzIwOTY0LDQuMDczNDA3MDMgNTQuMDk4NjIwNiw0LjA3MzQwNzAzIEw1Mi4yMDI5NDE2LDQuMDczNDA3MDMgTDUyLjIwMjk0MTYsMTAuNjM3MTgyNSBaIE00OC4zMDcwNDg5LDI1LjM1ODY2NzggTDQ4LjMwNzA0ODksMC41MjM1MjA0MDggTDU0LjE5NDM3MDgsMC41MjM1MjA0MDggQzU2LjIwMjQ5MDUsMC41MjM1MjA0MDggNTcuNjY4NjExMSwwLjk5MDk4MDcyNSA1OC41OTE4NTQyLDEuOTI1OTAxMzYgQzU5LjUxNTA5NzMsMi44NjA4MjE5OSA1OS45NzcxNTgxLDQuMjk4MzUwMzQgNTkuOTc3MTU4MSw2LjIzODQ4NjQgTDU5Ljk3NzE1ODEsNy4xMjE1NjQ2MiBDNTkuOTc3MTU4MSw5LjY3MzI2NTMxIDU5LjEzNDczMTcsMTEuMzQxODg3NyA1Ny40NDkwMDA1LDEyLjEyNjU1MzIgQzU5LjM4ODYwMTYsMTIuODg4MzczIDYwLjM1NzUyMzcsMTQuNjYxNTU4OSA2MC4zNTc1MjM3LDE3LjQ0MzQ3NSBMNjAuMzU3NTIzNywxOS40Njk3MjIzIEM2MC4zNTc1MjM3LDIxLjM4NjEzMzggNTkuODU1OTMzLDIyLjg0NzM4NjYgNTguODUxODczMywyMy44NTE3MjMzIEM1Ny44NDY5MzUsMjQuODU2MDYwMSA1Ni4zNzU1NDM2LDI1LjM1ODY2NzggNTQuNDM2ODIxLDI1LjM1ODY2NzggTDQ4LjMwNzA0ODksMjUuMzU4NjY3OCBaIiBpZD0iRmlsbC0xMCI+PC9wYXRoPgogICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IkZpbGwtMTEiIHBvaW50cz0iNjIuNjk1MjM1IDI1LjM1ODIyODUgNjIuNjk1MjM1IDAuNTIzMDgxMDY2IDczLjMyNjE0NjcgMC41MjMwODEwNjYgNzMuMzI2MTQ2NyA0LjA3Mzg0NjM3IDY2LjU5MTEyNzcgNC4wNzM4NDYzNyA2Ni41OTExMjc3IDEwLjk4MzgyMzcgNzEuOTQwODQyOCAxMC45ODM4MjM3IDcxLjk0MDg0MjggMTQuNTMzNzEwNCA2Ni41OTExMjc3IDE0LjUzMzcxMDQgNjYuNTkxMTI3NyAyMS44MDc0NjMyIDczLjMyNjE0NjcgMjEuODA3NDYzMiA3My4zMjYxNDY3IDI1LjM1ODIyODUiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJGaWxsLTEyIiBwb2ludHM9IjAgMzAuNDE0OTcxNiA3My4zODA2OTggMzAuNDE0OTcxNiA3My4zODA2OTggMjYuOTY3MDEyNCAwIDI2Ljk2NzAxMjQiPjwvcG9seWdvbj4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+');
+            }
+
+            .main-loading-logo {
+                display: block;
+                width: 74px;
+                height: 31px;
+                background-size: 74px 31px;
+            }
+
+            .main-loading {
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .main-loading > .spinner {
+                width: 80px;
+                height: 10px;
+                text-align: center;
+                box-sizing: border-box;
+                line-height: 1;
+                margin-top: 0;
+            }
+
+            .main-loading > .spinner > div {
+                width: 10px;
+                height: 10px;
+                border-radius: 100%;
+                display: inline-block;
+                -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+                animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+            }
+
+            .main-loading > .spinner .bounce1 {
+                -webkit-animation-delay: -0.64s;
+                animation-delay: -0.64s;
+                background-color: #ffffff;
+            }
+
+            .main-loading > .spinner .bounce2 {
+                -webkit-animation-delay: -0.32s;
+                animation-delay: -0.32s;
+                background-color: #ffffff;
+            }
+
+            .main-loading > .spinner .bounce3 {
+                background-color: #ffffff;
+                -webkit-animation-delay: -0.16s;
+                animation-delay: -0.16s;
+            }
+
+            .main-loading > .spinner .bounce4 {
+                background-color: #ffffff;
+            }
+
+            @-webkit-keyframes sk-bouncedelay {
+                0%, 80%, 100% {
+                    -webkit-transform: scale(0);
+                }
+
+                40% {
+                    -webkit-transform: scale(1);
+                }
+            }
+
+            @keyframes sk-bouncedelay {
+                0%, 80%, 100% {
+                    -webkit-transform: scale(0);
+                    transform: scale(0);
+                }
+
+                40% {
+                    -webkit-transform: scale(1);
+                    transform: scale(1);
+                }
+            }
+
+            #main-error-message .alert {
+                min-width: 300px;
+                max-width: 800px;
+                font-size: 14px;
+            }
+
+            #main-error-message {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+        <style>
+            @charset "UTF-8";
+            :root {
+                --blue: #007bff;
+                --indigo: #6610f2;
+                --purple: #6f42c1;
+                --pink: #e83e8c;
+                --red: #dc3545;
+                --orange: #fd7e14;
+                --yellow: #ffc107;
+                --green: #28a745;
+                --teal: #20c997;
+                --cyan: #17a2b8;
+                --white: #fff;
+                --gray: #6c757d;
+                --gray-dark: #343a40;
+                --primary: #007bff;
+                --secondary: #6c757d;
+                --success: #28a745;
+                --info: #17a2b8;
+                --warning: #ffc107;
+                --danger: #dc3545;
+                --light: #f8f9fa;
+                --dark: #343a40;
+                --breakpoint-xs: 0;
+                --breakpoint-sm: 576px;
+                --breakpoint-md: 768px;
+                --breakpoint-lg: 992px;
+                --breakpoint-xl: 1200px;
+                --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+            }
+
+            *,*:before,*:after {
+                box-sizing: border-box
+            }
+
+            html {
+                font-family: sans-serif;
+                line-height: 1.15;
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: rgba(0,0,0,0)
+            }
+
+            body {
+                margin: 0;
+                font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                text-align: left;
+                background-color: #fff
+            }
+
+            .alert {
+                position: relative;
+                padding: .75rem 1.25rem;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: .25rem
+            }
+
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb
+            }
+
+            .d-none {
+                display: none!important
+            }
+
+            .w-100 {
+                width: 100%!important
+            }
+
+            .h-100 {
+                height: 100%!important
+            }
+
+            .m-0 {
+                margin: 0!important
+            }
+
+            .text-center {
+                text-align: center!important
+            }
+
+            @media print {
+                *,*:before,*:after {
+                    text-shadow: none!important;
+                    box-shadow: none!important
+                }
+
+                @page {
+                    size: a3
+                }
+
+                body {
+                    min-width: 992px!important
+                }
+            }
+
+            :root {
+                --headerHeight: 32px;
+                --footerHeight: 70px
+            }
+
+            @media (max-width: 767.98px) {
+                :root {
+                    --headerHeight:34px;
+                    --footerHeight: 145px;
+                    --footerHeightRoulette: 100px
+                }
+            }
+
+            html,body {
+                touch-action: manipulation;
+                background: black;
+                font-family: Roboto,sans-serif;
+                overflow-y: hidden;
+                min-width: 100%;
+                height: 100%;
+                max-height: 100vh
+            }
+
+            body {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                -webkit-text-size-adjust: none;
+                -moz-text-size-adjust: none;
+                text-size-adjust: none;
+                font-size: 16px;
+                color: gray
+            }
+
+            .alert {
+                font-size: 12px;
+                color: #fff;
+                letter-spacing: -.12px;
+                line-height: 1.25;
+                border-radius: 10px;
+                border: 1px solid transparent;
+                padding: 8px 36px 8px 12px;
+                margin-bottom: 6px;
+                box-shadow: 0 0 8px #0000004d
+            }
+
+            .alert-danger {
+                border-color: #e95151;
+                background-color: #823c4e
+            }
+        </style>
+        <link rel="stylesheet" href="Mines_files/styles.923f44cfad2e9cac.css" media="all" onload="this.media=&#39;all&#39;">
+        <noscript>
+            <link rel="stylesheet" href="Mines_files/styles.923f44cfad2e9cac.css">
+        </noscript>
+        <style></style>
+        <style>
+            .game-viewport[_ngcontent-cil-c81] .game-wrapper[_ngcontent-cil-c81] .game[_ngcontent-cil-c81] .game-header-wrapper.aviaport[_ngcontent-cil-c81] {
+                top: 0;
+                padding: 0;
+                height: 0
+            }
+        </style>
+        <style>
+            .fun-mode[_ngcontent-cil-c75] {
+                pointer-events: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+                border: var(--widthBorder) solid #fb9c23;
+                --widthBorder: 2px
+            }
+
+            @media (max-width: 767.98px) {
+                .fun-mode[_ngcontent-cil-c75] {
+                    border-color:transparent
+                }
+            }
+
+
+            @media (max-width: 767.98px) {
+                .fun-mode[_ngcontent-cil-c75]:before {
+                    top:1px;
+                    top: var(--mobileTopIndent, 1px);
+                    padding-left: 16px;
+                    padding-right: 16px;
+                    border-radius: 12px
+                }
+            }
+        </style>
+        <style>
+            .bs-message[_ngcontent-cil-c78] {
+                z-index: 1060;
+                overflow: hidden;
+                position: fixed;
+                top: 0;
+                left: 0;
+                max-width: calc(424px + var(--bsMessageIndent) * 2);
+                width: 100%;
+                padding-left: var(--bsMessageIndent);
+                padding-right: var(--bsMessageIndent);
+                --bsMessageIndent: 8px
+            }
+
+            .bs-message.top-center[_ngcontent-cil-c78] {
+                left: 50%;
+                top: 6px;
+                transform: translate(-50%)
+            }
+
+            .bs-message.top-left[_ngcontent-cil-c78] {
+                left: var(--gamePadding);
+                top: var(--gamePadding)
+            }
+
+            .bs-message.center-center[_ngcontent-cil-c78] {
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%)
+            }
+
+            .bs-message.bottom-center[_ngcontent-cil-c78] {
+                left: 50%;
+                bottom: var(--gamePadding);
+                transform: translate(-50%)
+            }
+        </style>
+        <style>
+            .screen-too-small[_ngcontent-cil-c79] {
+                z-index: 10000;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                background-color: #212226
+            }
+
+            .screen-too-small--view[_ngcontent-cil-c79] {
+                display: flex
+            }
+
+            .screen-too-small__wrap-text[_ngcontent-cil-c79] {
+                max-width: 296px;
+                text-align: center
+            }
+
+            .screen-too-small__wrap-text[_ngcontent-cil-c79] h3[_ngcontent-cil-c79] {
+                color: #ccc;
+                font-size: 20px;
+                line-height: normal;
+                letter-spacing: -.2px;
+                margin-bottom: 4px
+            }
+
+            .screen-too-small__wrap-text[_ngcontent-cil-c79] p[_ngcontent-cil-c79] {
+                color: #7a7a7a;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 1.21429;
+                letter-spacing: -.14px;
+                margin-bottom: 0
+            }
+        </style>
+        <style>
+            @media (max-width: 767.98px) {
+                .max-win[_ngcontent-cil-c73] {
+                    display:none
+                }
+            }
+
+            .c-header[_ngcontent-cil-c73] {
+                padding-left: 3px;
+                padding-right: 3px
+            }
+
+            @media (max-width: 767.98px) {
+                .c-header[_ngcontent-cil-c73] {
+                    padding:0
+                }
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .dropdown-menu[_ngcontent-cil-c73], .btn-user-menu[_ngcontent-cil-c73] .dropdown-menu[_ngcontent-cil-c73] {
+                border-color: #1b1b1b;
+                background-color: #212226
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] {
+                position: relative;
+                flex: 0 0 130px;
+                max-width: 130px;
+                height: 24px;
+                font-size: 12px
+            }
+
+            @media (max-width: 767.98px) {
+                .btn-game-dd[_ngcontent-cil-c73] {
+                    height:26px
+                }
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .icon-bubble[_ngcontent-cil-c73] {
+                top: 50%;
+                left: 4px;
+                width: 14px;
+                height: 14px;
+                background: url(https://mi.1wine.life/icon-bubble.11178e625191607d.svg) no-repeat center center/contain;
+                transform: translateY(-50%)
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .dropdown-toggle[_ngcontent-cil-c73] {
+                text-transform: uppercase;
+                padding-right: 15px
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .dropdown-toggle[_ngcontent-cil-c73]:after {
+                position: absolute;
+                right: 10px;
+                top: 8px
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .dropdown-toggle-disable[_ngcontent-cil-c73] {
+                cursor: default;
+                pointer-events: none;
+                padding-right: 0
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .dropdown-toggle-disable[_ngcontent-cil-c73]:after {
+                content: none
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] {
+                font-size: 10px;
+                padding: 0 8px 8px;
+                min-width: auto
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-items-wrapper[_ngcontent-cil-c73] {
+                display: grid;
+                grid-template-columns: repeat(4,1fr);
+                grid-gap: 0
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-item[_ngcontent-cil-c73] {
+                width: 70px;
+                height: auto;
+                word-break: break-word;
+                padding: 0
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-item.active[_ngcontent-cil-c73], .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-item[_ngcontent-cil-c73]:focus, .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-item[_ngcontent-cil-c73]:active, .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-item[_ngcontent-cil-c73]:hover {
+                color: #fff!important;
+                background-color: #0000
+            }
+
+            .btn-game-dd[_ngcontent-cil-c73] .game-navigation[_ngcontent-cil-c73] .dropdown-item[_ngcontent-cil-c73] .icon[_ngcontent-cil-c73] {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 34px;
+                height: 34px
+            }
+
+            .timer-wrapper[_ngcontent-cil-c73] {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%)
+            }
+
+            @media screen and (max-width: 374px) {
+                .timer-wrapper[_ngcontent-cil-c73] {
+                    left:53.5%
+                }
+            }
+
+            .balance[_ngcontent-cil-c73] {
+                position: relative;
+                font-size: 12px;
+                z-index: 1
+            }
+
+            @media (max-width: 767.98px) {
+                .balance[_ngcontent-cil-c73] {
+                    font-size:14px
+                }
+            }
+
+            .balance[_ngcontent-cil-c73] .badge[_ngcontent-cil-c73] {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translate(-100%,-50%)
+            }
+
+            .btn-user-menu[_ngcontent-cil-c73] {
+                flex: 0 0 24px;
+                display: flex;
+                height: 24px
+            }
+
+            @media (max-width: 767.98px) {
+                .btn-user-menu[_ngcontent-cil-c73] {
+                    flex-basis:26px;
+                    height: 26px
+                }
+            }
+
+            .btn-user-menu--notification[_ngcontent-cil-c73]:before {
+                content: "";
+                pointer-events: none;
+                z-index: 1;
+                position: absolute;
+                top: 1px;
+                right: 1px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: #d71730
+            }
+
+            .btn-user-menu[_ngcontent-cil-c73] .dropdown-toggle[_ngcontent-cil-c73]:after {
+                display: none!important
+            }
+
+            .btn-user-menu[_ngcontent-cil-c73] .user-menu[_ngcontent-cil-c73] {
+                width: 100%;
+                height: 100%;
+                background-image: url(icon-burger-menu.d11de584b7113bad.svg);
+                background-repeat: no-repeat;
+                background-position: center center
+            }
+
+            .badge[_ngcontent-cil-c73] {
+                visibility: visible;
+                opacity: 1;
+                transition: visibility .2s ease-in-out,opacity .2s ease-in-out
+            }
+
+            .badge_hide[_ngcontent-cil-c73] {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility .2s ease-in-out,opacity .2s ease-in-out
+            }
+
+            .how[_ngcontent-cil-c73] {
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                align-items: center;
+                width: 150px;
+                height: 22px;
+                color: #3c0606;
+                font-size: 12px;
+                border-radius: 17px;
+                padding: 0;
+                margin-left: 15px;
+                background-image: linear-gradient(to bottom,#f9a119,#f38410);
+                box-shadow: none
+            }
+
+            @media (max-width: 767.98px) {
+                .how[_ngcontent-cil-c73] {
+                    width:22px;
+                    margin-left: 5px
+                }
+            }
+
+            .how[_ngcontent-cil-c73] svg-icon[_ngcontent-cil-c73] {
+                position: absolute;
+                top: 50%;
+                left: 1px;
+                display: flex;
+                transform: translateY(-50%)
+            }
+
+            .how[_ngcontent-cil-c73] svg-icon[_ngcontent-cil-c73] svg[_ngcontent-cil-c73] {
+                width: 18px;
+                height: 18px
+            }
+
+            .how[_ngcontent-cil-c73] svg-icon[_ngcontent-cil-c73] path[_ngcontent-cil-c73] {
+                fill: #3c0606
+            }
+
+            .how[_ngcontent-cil-c73] span[_ngcontent-cil-c73] {
+                position: relative;
+                left: 20px;
+                display: block;
+                width: calc(100% - 20px);
+                text-align: center
+            }
+
+            @media (max-width: 767.98px) {
+                .how[_ngcontent-cil-c73] span[_ngcontent-cil-c73] {
+                    display:none
+                }
+            }
+
+            .name-game[_ngcontent-cil-c73] {
+                cursor: default!important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                width: 122px;
+                height: 24px;
+                font-size: 12px;
+                text-transform: uppercase;
+                color: #fff;
+                border-radius: 15px
+            }
+
+            .hidden-header[_ngcontent-cil-c73] {
+                width: 100%
+            }
+
+            .hidden-header[_ngcontent-cil-c73] .btn-user-menu[_ngcontent-cil-c73] {
+                height: 0;
+                width: 0;
+                margin-left: auto;
+                margin-right: 5px
+            }
+
+            .hidden-header[_ngcontent-cil-c73] .user-menu[_ngcontent-cil-c73] {
+                width: 0;
+                height: 0
+            }
+        </style>
+        <style>
+            .mines-wrapper[_ngcontent-cil-c83] {
+                font-size: 18px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center
+            }
+
+            @media (min-width: 768px) {
+                .mines-wrapper[_ngcontent-cil-c83]:after {
+                    content:" ";
+                    position: absolute;
+                    right: -8px;
+                    top: 46%;
+                    transform: translateY(-50%);
+                    width: 154px;
+                    height: 305px;
+                    background: url(mines-bomb.3e2ede48c255cbf9.svg)
+                }
+
+                .mines-wrapper[_ngcontent-cil-c83]:before {
+                    content: " ";
+                    position: absolute;
+                    left: -103px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 259px;
+                    height: 261px;
+                    background: url(mines-star.2a6a3218b2bd3be1.svg)
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                z-index: 1
+            }
+
+            @media (min-width: 992px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] {
+                    justify-content:center
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 2px;
+                padding: 0 2px
+            }
+
+            @media (min-width: 992px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] {
+                    margin-top:0;
+                    margin-bottom: .3em;
+                    padding: 0
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 22px;
+                background-color: #15171969;
+                border-radius: 12px;
+                width: 100%
+            }
+
+            @media (max-width: 767.98px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] {
+                    height:26px
+                }
+            }
+
+            @media (max-width: 767.98px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .btn-game[_ngcontent-cil-c83] {
+                    height:26px
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .max-win[_ngcontent-cil-c83] {
+                pointer-events: none;
+                position: absolute;
+                display: flex;
+                justify-content: flex-end;
+                max-width: 424.5px;
+                width: 100%;
+                margin: 0 auto;
+                top: 41px;
+                left: 50%;
+                transform: translate(-50%)
+            }
+
+            @media (min-width: 768px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .max-win[_ngcontent-cil-c83] {
+                    display:none
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .next-tile[_ngcontent-cil-c83] {
+                height: calc(100% - 3px);
+                border-radius: 12px;
+                font-size: 12px;
+                margin-right: 2px;
+                color: #fff;
+                display: flex;
+                align-items: center
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .next-tile[_ngcontent-cil-c83] span[_ngcontent-cil-c83] {
+                font-size: 14px
+            }
+
+            @media (max-width: 767.98px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .next-tile[_ngcontent-cil-c83] span[_ngcontent-cil-c83]:first-child {
+                    font-size:12px
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .next-tile.bg-error[_ngcontent-cil-c83] {
+                color: #fff!important;
+                background-color: #b32b00!important
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .number-of-mines[_ngcontent-cil-c83] {
+                font-size: 12px;
+                color: #fff;
+                display: flex;
+                align-items: center
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .number-of-mines[_ngcontent-cil-c83] .dd[_ngcontent-cil-c83] .dropdown-menu[_ngcontent-cil-c83] {
+                height: 200px;
+                overflow-y: auto;
+                overflow-x: hidden
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .number-of-mines[_ngcontent-cil-c83] .dd[_ngcontent-cil-c83] .dropdown-item[_ngcontent-cil-c83] {
+                width: 100%
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .number-of-mines[_ngcontent-cil-c83] button[_ngcontent-cil-c83] {
+                width: 140px
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .number-of-mines[_ngcontent-cil-c83] button[_ngcontent-cil-c83]:after {
+                position: absolute;
+                top: 5px;
+                right: 5px
+            }
+
+            @media (max-width: 767.98px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .mines-header-info[_ngcontent-cil-c83] .number-of-mines[_ngcontent-cil-c83] button[_ngcontent-cil-c83]:after {
+                    top:8px
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-header[_ngcontent-cil-c83] .progress[_ngcontent-cil-c83] {
+                width: 100%;
+                background-color: #15171969;
+                height: 4px;
+                margin-bottom: .3em;
+                margin-top: 5px
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .row-mines[_ngcontent-cil-c83] {
+                width: 100%;
+                padding: 0 5px;
+                z-index: 1;
+                height: auto
+            }
+
+            @media (min-width: 992px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .row-mines[_ngcontent-cil-c83] {
+                    width:23.45em;
+                    padding: 0
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .row-mines[_ngcontent-cil-c83] canvas[_ngcontent-cil-c83] {
+                max-height: 17.85em
+            }
+
+            @media (max-width: 767.98px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .row-mines[_ngcontent-cil-c83] canvas[_ngcontent-cil-c83] {
+                    max-height:16.35em;
+                    width: 90%;
+                    height: auto
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-footer[_ngcontent-cil-c83] {
+                display: flex;
+                width: 100%;
+                padding: 2px 5px
+            }
+
+            @media (min-width: 768px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-footer[_ngcontent-cil-c83] {
+                    padding-top:.5em
+                }
+            }
+
+            @media (max-width: 767.98px) {
+                .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-footer[_ngcontent-cil-c83] {
+                    margin-bottom:10px
+                }
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-footer[_ngcontent-cil-c83] .btn-game[_ngcontent-cil-c83] {
+                height: 1.67em;
+                width: 50%
+            }
+
+            .mines-wrapper[_ngcontent-cil-c83] .mines-game[_ngcontent-cil-c83] .mines-footer[_ngcontent-cil-c83] .btn-game[_ngcontent-cil-c83] span[_ngcontent-cil-c83] {
+                font-size: .77em
+            }
+
+            .auto-play-toggle-wrapper[_ngcontent-cil-c83] {
+                background-color: #15171969;
+                border-radius: 10px;
+                height: 25px;
+                width: 150px
+            }
+
+            .auto-play-toggle-wrapper[_ngcontent-cil-c83] .auto-play-toggle[_ngcontent-cil-c83] {
+                background-color: #f3f3f369;
+                border-radius: 10px;
+                width: 20px;
+                height: 13px
+            }
+
+            .auto-play-toggle-wrapper[_ngcontent-cil-c83] .auto-play-toggle[_ngcontent-cil-c83] .mark[_ngcontent-cil-c83] {
+                width: 11px;
+                height: 11px;
+                background-color: #fff;
+                border-radius: 50%;
+                transition: all .2s;
+                right: 9px
+            }
+
+            .auto-play-toggle-wrapper[_ngcontent-cil-c83] .auto-play-toggle.active[_ngcontent-cil-c83] .mark[_ngcontent-cil-c83] {
+                right: 0
+            }
+
+            .auto-play-toggle-wrapper[_ngcontent-cil-c83] label[_ngcontent-cil-c83] {
+                margin: 0 0 0 5px;
+                font-size: 14px;
+                color: #fff
+            }
+
+            .size-text[_ngcontent-cil-c83] {
+                font-size: 12px
+            }
+        </style>
+        <style>
+            .max-win[_ngcontent-cil-c71] {
+                display: flex;
+                align-items: center;
+                color: #fff;
+                font-size: 12px;
+                line-height: 1;
+                padding: 3px 5px;
+                border-radius: 100px;
+                background-color: #b32b00;
+                width: -moz-fit-content;
+                width: fit-content
+            }
+
+            .max-win[_ngcontent-cil-c71] svg-icon[_ngcontent-cil-c71] {
+                display: flex;
+                margin-right: 3px
+            }
+
+            .max-win[_ngcontent-cil-c71] svg-icon[_ngcontent-cil-c71] svg[_ngcontent-cil-c71] {
+                display: flex
+            }
+        </style>
+        <style>
+            .game-mode-toggle[_ngcontent-cil-c82] {
+                background: rgba(0,0,0,.3);
+                border-radius: 13px;
+                height: 26px;
+                color: #fff;
+                font-size: 12px;
+                min-width: 205px
+            }
+
+            @media (max-width: 575.98px) {
+                .game-mode-toggle[_ngcontent-cil-c82] {
+                    min-width:auto
+                }
+            }
+
+            .game-mode-toggle_high-risk[_ngcontent-cil-c82] {
+                padding-left: 3.35rem
+            }
+
+            .game-mode-toggle[_ngcontent-cil-c82] label[_ngcontent-cil-c82] {
+                line-height: 1
+            }
+
+            .game-mode-toggle[_ngcontent-cil-c82] svg-icon[_ngcontent-cil-c82] {
+                position: absolute;
+                left: 4px;
+                top: 50%;
+                transform: translateY(-50%)
+            }
+
+            .game-mode-toggle.ui-state-disabled[_ngcontent-cil-c82] {
+                opacity: .7;
+                pointer-events: none
+            }
+        </style>
+        <style>
+            .bet-input[_ngcontent-cil-c87] {
+                border: 1px solid rgba(0,0,0,.53);
+                box-shadow: inset 1px 1px #fff1cd33;
+                border-radius: 30px;
+                max-width: 300px;
+                min-width: 300px;
+                height: 50px;
+                display: flex;
+                align-items: center
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] {
+                margin-left: 10px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .input[_ngcontent-cil-c87] {
+                background: rgba(0,0,0,.4);
+                border: 1px solid rgba(255,255,255,.2);
+                box-shadow: inset 0 1px #00000080;
+                border-radius: 15px;
+                width: 100%;
+                height: 28px;
+                display: flex;
+                align-items: center;
+                color: #fff;
+                justify-content: center;
+                flex-direction: column;
+                cursor: text;
+                font-weight: 700
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .input.crypto[_ngcontent-cil-c87] span.value[_ngcontent-cil-c87] {
+                font-size: 12px;
+                line-height: 12px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .input.crypto[_ngcontent-cil-c87] span.label[_ngcontent-cil-c87] {
+                font-size: 10px;
+                line-height: 10px;
+                font-weight: 400;
+                color: #ffffff80
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .btn-wrapper[_ngcontent-cil-c87] {
+                flex: 0 0 24px;
+                max-width: 24px;
+                height: 20px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .btn-wrapper[_ngcontent-cil-c87] .btn-input[_ngcontent-cil-c87] {
+                height: 100%;
+                cursor: pointer;
+                background-position: center center;
+                background-repeat: no-repeat
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .btn-wrapper[_ngcontent-cil-c87] .btn-input.btn-minus[_ngcontent-cil-c87] {
+                background-image: url(icon-minus.496f2e671ff32d15.svg);
+                margin-left: 4px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .btn-wrapper[_ngcontent-cil-c87] .btn-input.btn-plus[_ngcontent-cil-c87] {
+                background-image: url(icon-plus.feaff32a610ebd64.svg);
+                margin-right: 4px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .btn-wrapper[_ngcontent-cil-c87] .btn-input[_ngcontent-cil-c87]:hover {
+                opacity: .9
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-wrapper[_ngcontent-cil-c87] .btn-wrapper[_ngcontent-cil-c87] .btn-input[_ngcontent-cil-c87]:active {
+                transform: translateY(1px)
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] {
+                width: 100%
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game[_ngcontent-cil-c87] {
+                font-size: 14px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.prev[_ngcontent-cil-c87], .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.next[_ngcontent-cil-c87] {
+                width: 36px;
+                height: 32px;
+                position: relative
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.prev[_ngcontent-cil-c87]:after, .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.next[_ngcontent-cil-c87]:after {
+                content: " ";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.prev[_ngcontent-cil-c87]:after {
+                background: url(icon-minus.496f2e671ff32d15.svg) no-repeat center center
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.next[_ngcontent-cil-c87]:after {
+                background: url(icon-plus.feaff32a610ebd64.svg) no-repeat center center
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.all[_ngcontent-cil-c87] {
+                width: 38px;
+                height: 36px;
+                background: url(icon-coin.35e2c2ac0b9fe1fa.svg) no-repeat center center
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .btn-game.all[_ngcontent-cil-c87]:after {
+                background: none
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .fast-bets-menu.show[_ngcontent-cil-c87] {
+                width: 300px;
+                top: -7px!important;
+                left: -80px!important;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .fast-bets-menu.show[_ngcontent-cil-c87] span[_ngcontent-cil-c87] {
+                color: #fff;
+                font-size: 14px
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .fast-bets-menu.show[_ngcontent-cil-c87] .btn-game[_ngcontent-cil-c87] {
+                width: 100%;
+                height: 26px;
+                font-size: 12px;
+                box-shadow: none
+            }
+
+            .bet-input[_ngcontent-cil-c87] .input-change[_ngcontent-cil-c87] .fast-bets-menu.show[_ngcontent-cil-c87] .btn-game[_ngcontent-cil-c87] span[_ngcontent-cil-c87] {
+                margin-left: 2px;
+                color: #d2d2d2
+            }
+        </style>
+        <style>
+            [_nghost-cil-c89] {
+                display: contents
+            }
+
+            .auto-cashout-countdown[_ngcontent-cil-c89] {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                border: 1px solid rgba(0,0,0,.53);
+                box-shadow: inset 1px 1px #fff1cd33;
+                border-radius: 30px;
+                padding: 9px 20px 10px
+            }
+
+            @media (max-width: 767.98px) {
+                .auto-cashout-countdown[_ngcontent-cil-c89] {
+                    padding:8px 17px
+                }
+            }
+
+            .auto-cashout-countdown__label[_ngcontent-cil-c89] {
+                text-align: center;
+                color: #fff;
+                font-size: 12px;
+                line-height: normal;
+                font-weight: 400;
+                margin-bottom: 5px
+            }
+
+            .auto-cashout-countdown__wrap-loader[_ngcontent-cil-c89] {
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+                height: 12px;
+                border-radius: 7px;
+                border: 1px solid rgba(0,0,0,.6);
+                background-color: #0000004d
+            }
+
+            .auto-cashout-countdown__loader[_ngcontent-cil-c89] {
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 100%;
+                border-radius: 7px;
+                background-image: linear-gradient(180deg,#569b02 0%,#377e01 100%);
+                transform: translate(-100%)
+            }
+        </style>
+        <style>
+            .bet-spinner[_ngcontent-cil-c86] {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                width: 150px;
+                font-size: 14px;
+                line-height: 1;
+                color: #fff
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] .input-wrapper[_ngcontent-cil-c86] {
+                width: 142px;
+                height: 22px;
+                border-radius: 11px;
+                border: solid 1px rgba(0,0,0,.6);
+                background-color: #0000004d
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] .input-wrapper[_ngcontent-cil-c86] .input[_ngcontent-cil-c86] {
+                width: calc(100% - 1rem);
+                margin: 0 .5rem;
+                font-weight: 700
+            }
+
+            @media (max-width: 767.98px) {
+                .bet-spinner[_ngcontent-cil-c86] .input-wrapper[_ngcontent-cil-c86] .input[_ngcontent-cil-c86] {
+                    font-size:16px
+                }
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] .input-wrapper[_ngcontent-cil-c86] .approx[_ngcontent-cil-c86] {
+                height: 11px;
+                font-size: 10px
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] .input-wrapper[_ngcontent-cil-c86] .approx[_ngcontent-cil-c86] .text[_ngcontent-cil-c86] {
+                color: #a2a2a4
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] .input-wrapper.active[_ngcontent-cil-c86] {
+                border-color: #fff
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] button[_ngcontent-cil-c86] {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                border: none;
+                background: transparent;
+                margin: 0;
+                position: relative
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] button[_ngcontent-cil-c86]:focus {
+                outline: none;
+                box-shadow: none
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] button[_ngcontent-cil-c86] .plus[_ngcontent-cil-c86] {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                display: inline-block;
+                background: url(icon-plus.feaff32a610ebd64.svg);
+                width: 9px;
+                height: 9px;
+                transform: translate(-50%,-50%)
+            }
+
+            .bet-spinner[_ngcontent-cil-c86] button[_ngcontent-cil-c86] .minus[_ngcontent-cil-c86] {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                display: inline-block;
+                background: url(icon-minus.496f2e671ff32d15.svg);
+                width: 9px;
+                height: 1px;
+                transform: translate(-50%,-50%)
+            }
+
+            .note[_ngcontent-cil-c86] {
+                font-size: 12px;
+                margin-bottom: 1px
+            }
+
+            @media (max-width: 767.98px) {
+                .note[_ngcontent-cil-c86] {
+                    font-size:14px
+                }
+            }
+        </style>
+        <style>
+            .spinner[_ngcontent-cil-c85] {
+                color: #fff
+            }
+
+            .spinner.disabled[_ngcontent-cil-c85] {
+                opacity: .5;
+                pointer-events: none;
+                cursor: default!important
+            }
+
+            .spinner[_ngcontent-cil-c85] .caret[_ngcontent-cil-c85] {
+                position: absolute;
+                display: inline-block;
+                height: 100%;
+                width: 1px;
+                background: #ffffff;
+                animation: caretAnimation .5s linear infinite alternate
+            }
+
+            .spinner[_ngcontent-cil-c85] .dropdown-toggle[_ngcontent-cil-c85]:after {
+                display: none
+            }
+
+            .spinner[_ngcontent-cil-c85] .dropdown-menu.show[_ngcontent-cil-c85] {
+                min-width: 0;
+                background-color: transparent;
+                background-color: initial;
+                color: inherit;
+                border: unset;
+                padding: 0;
+                margin: 0
+            }
+
+            @keyframes caretAnimation {
+                0% {
+                    background: #ffffff
+                }
+
+                to {
+                    background: transparent
+                }
+            }
+        </style>
+        <style>
+            .numpad[_ngcontent-cil-c84] {
+                width: 234px;
+                padding: 3px;
+                border-radius: 12px
+            }
+
+            .numpad[_ngcontent-cil-c84] .col-4[_ngcontent-cil-c84], .numpad[_ngcontent-cil-c84] .col-12[_ngcontent-cil-c84] {
+                padding: 1px
+            }
+
+            .numpad[_ngcontent-cil-c84] .btn-game[_ngcontent-cil-c84] {
+                height: 34px;
+                border-radius: 8px;
+                font-size: 22px
+            }
+
+            .numpad[_ngcontent-cil-c84] .btn-game.btn-done[_ngcontent-cil-c84] {
+                background: rgba(0,0,0,.5)!important;
+                height: 26px
+            }
+
+            .numpad[_ngcontent-cil-c84] .btn-game[_ngcontent-cil-c84] i.backspace[_ngcontent-cil-c84] {
+                background: url(https://mi.1wine.life/icon-backspace.4af92da27c353bca.svg) no-repeat center center/contain;
+                width: 22px;
+                height: 17px
+            }
+
+            .numpad[_ngcontent-cil-c84] .btn-game[_ngcontent-cil-c84] i.confirm[_ngcontent-cil-c84] {
+                background: url(https://mi.1wine.life/icon-confirm.ec9f979b15ef75ed.svg) no-repeat center center/contain;
+                width: 18px;
+                height: 13px
+            }
+        </style>
+        <style>
+            .user-menu[_ngcontent-cil-c72] {
+                width: 298px;
+                font-size: 13px
+            }
+
+            .user-menu[_ngcontent-cil-c72] .avatar[_ngcontent-cil-c72] {
+                width: 40px;
+                height: 40px
+            }
+
+            .user-menu[_ngcontent-cil-c72] .username[_ngcontent-cil-c72] {
+                color: #fff
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item[_ngcontent-cil-c72] {
+                display: flex;
+                align-items: center;
+                height: 34px;
+                padding: 0;
+                border-color: #ffffff1a
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item.disabled[_ngcontent-cil-c72] {
+                opacity: .6;
+                pointer-events: none
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item.rounded-top[_ngcontent-cil-c72] {
+                border-top-left-radius: 8px!important;
+                border-top-right-radius: 8px!important
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item.rounded-bottom[_ngcontent-cil-c72] {
+                border-bottom-left-radius: 8px!important;
+                border-bottom-right-radius: 8px!important
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item[_ngcontent-cil-c72] .custom-switch[_ngcontent-cil-c72] label[_ngcontent-cil-c72] {
+                cursor: pointer
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item-bg[_ngcontent-cil-c72], .user-menu[_ngcontent-cil-c72] .list-group-item-action[_ngcontent-cil-c72] {
+                background-color: #0003
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item-action[_ngcontent-cil-c72] {
+                cursor: pointer
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item-action[_ngcontent-cil-c72]:hover, .user-menu[_ngcontent-cil-c72] .list-group-item-action[_ngcontent-cil-c72]:focus {
+                background-color: #0000004d!important
+            }
+
+            .user-menu[_ngcontent-cil-c72] .list-group-item-action[_ngcontent-cil-c72]:active {
+                background-color: #0006
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon[_ngcontent-cil-c72] {
+                width: 16px;
+                height: 16px;
+                background: no-repeat center center/contain
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.scales[_ngcontent-cil-c72] {
+                height: 15px;
+                background-image: url(https://mi.1wine.life/icon-scales.e5f683a0b77fd0f1.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.history[_ngcontent-cil-c72] {
+                background-image: url(https://mi.1wine.life/icon-history.1160649dfd98e356.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.star[_ngcontent-cil-c72] {
+                background-image: url(https://mi.1wine.life/icon-star.a48e3d708fd7461a.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.rules[_ngcontent-cil-c72] {
+                height: 18px;
+                background-image: url(https://mi.1wine.life/icon-rules.99256ac755bf5a7a.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.limits[_ngcontent-cil-c72] {
+                height: 10px;
+                background-image: url(https://mi.1wine.life/icon-limits.aecaaf432c75a1ec.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.volume[_ngcontent-cil-c72] {
+                width: 18px;
+                height: 15px;
+                margin-top: 1px;
+                background-image: url(https://mi.1wine.life/icon-volume.51f0459605884b08.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.animation[_ngcontent-cil-c72] {
+                width: 18px;
+                height: 13px;
+                margin-top: 1px;
+                background-image: url(https://mi.1wine.life/icon-animation.edd6594a340c9484.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.provably-fair[_ngcontent-cil-c72] {
+                width: 14px;
+                background-image: url(https://mi.1wine.life/icon-provaby-fair.4f566a4692338648.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.logo[_ngcontent-cil-c72] {
+                width: 33px;
+                height: 14px;
+                background-image: url(https://mi.1wine.life/icon-logo.07e2fb9b2553a082.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.home[_ngcontent-cil-c72] {
+                background-image: url(https://mi.1wine.life/icon-home.f34eb6cc9d4c0927.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] .icon.music[_ngcontent-cil-c72] {
+                background-image: url(https://mi.1wine.life/icon-music.7b3cff2355a813db.svg)
+            }
+
+            .user-menu[_ngcontent-cil-c72] hr[_ngcontent-cil-c72] {
+                margin: 10px 0;
+                background-color: #ffffff1a
+            }
+
+            .user-menu[_ngcontent-cil-c72] .provably-fair-wrapper[_ngcontent-cil-c72] {
+                cursor: pointer;
+                font-size: 12px
+            }
+
+            a[_ngcontent-cil-c72]:focus, a[_ngcontent-cil-c72]:active, a[_ngcontent-cil-c72]:hover {
+                text-decoration: none
+            }
+
+            .dropdown-item[_ngcontent-cil-c72] {
+                color: inherit;
+                padding: inherit
+            }
+
+            .dropdown-item[_ngcontent-cil-c72]:hover {
+                background-color: inherit!important
+            }
+        </style>
+        <style>
+            [_nghost-cil-c74] {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0,0,0,.2);
+                -webkit-backdrop-filter: blur(1px);
+                backdrop-filter: blur(1px);
+                top: 0;
+                left: 0;
+                border-radius: inherit
+            }
+
+            .icon-no-internet[_ngcontent-cil-c74] {
+                width: 18px;
+                height: 16px;
+                display: inline-block;
+                background: url("data:image/svg+xml,%3Csvg width='18' height='16' viewBox='0 0 18 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.47 6.214A8.887 8.887 0 0 0 2.66 8.117a.56.56 0 0 1-.794 0 .561.561 0 0 1 0-.793 10.005 10.005 0 0 1 3.166-2.142.561.561 0 0 1 .44 1.032zm-1.527-2.58a.561.561 0 0 0-.758-.237 12.46 12.46 0 0 0-3.02 2.226.561.561 0 1 0 .793.793 11.339 11.339 0 0 1 2.749-2.025.561.561 0 0 0 .236-.758zM7.68 7.44a.56.56 0 0 0-.687-.397 7.65 7.65 0 0 0-3.427 1.98.561.561 0 1 0 .793.794 6.527 6.527 0 0 1 2.924-1.69c.3-.08.477-.388.397-.687zm10.111-1.818a12.425 12.425 0 0 0-6.076-3.348 12.502 12.502 0 0 0-6.464.266L2.874.164a.561.561 0 1 0-.794.794L15.473 14.35a.56.56 0 0 0 .794 0 .561.561 0 0 0 0-.794l-5.362-5.361a6.518 6.518 0 0 1 2.691 1.622.56.56 0 0 0 .794 0 .561.561 0 0 0 0-.794 7.638 7.638 0 0 0-4.878-2.222L8.239 5.53a8.915 8.915 0 0 1 7.058 2.587.56.56 0 0 0 .794 0 .561.561 0 0 0 0-.793 10.038 10.038 0 0 0-8.853-2.795l-1.08-1.08a11.273 11.273 0 0 1 10.84 2.967.56.56 0 0 0 .793 0 .561.561 0 0 0 0-.793zm-8.29 4.122a.561.561 0 0 0-.566-.557 5.218 5.218 0 0 0-3.668 1.537.561.561 0 1 0 .793.794c.77-.77 1.795-1.2 2.884-1.209a.561.561 0 0 0 .556-.565zm1.004 2.57c.407.408.632.95.632 1.527s-.225 1.119-.632 1.527c-.421.42-.974.631-1.527.631-.553 0-1.106-.21-1.527-.631a2.145 2.145 0 0 1-.632-1.527c0-.577.224-1.119.632-1.527a2.162 2.162 0 0 1 3.054 0zm-.49 1.527a1.034 1.034 0 0 0-1.037-1.036 1.034 1.034 0 0 0-1.037 1.036 1.038 1.038 0 0 0 2.074 0z' fill='%23FFF' fill-rule='evenodd'/%3E%3C/svg%3E%0A") center center/contain no-repeat
+            }
+
+            .icon-low-connection[_ngcontent-cil-c74] {
+                width: 10px;
+                height: 13px;
+                display: inline-block;
+                background: url("data:image/svg+xml,%3Csvg width='10' height='13' viewBox='0 0 10 13' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FFF' fill-rule='evenodd'%3E%3Crect opacity='.5' x='8' width='1.5' height='13' rx='.75'/%3E%3Crect opacity='.5' x='4' y='3' width='1.5' height='10' rx='.75'/%3E%3Crect y='6' width='1.5' height='7' rx='.75'/%3E%3C/g%3E%3C/svg%3E%0A") center center/contain no-repeat
+            }
+
+            .badge[_ngcontent-cil-c74] {
+                position: absolute;
+                top: 3px
+            }
+            
+        </style>
+        
+    </head>
+    <body app-version="2.1.36" class="mines">
+        <app-root _nghost-cil-c68="" ng-version="13.4.0">
+            <router-outlet _ngcontent-cil-c68=""></router-outlet>
+            <app-core _nghost-cil-c81="" class="ng-star-inserted">
+                <div _ngcontent-cil-c81="" class="game-viewport">
+                    <div _ngcontent-cil-c81="" class="game-wrapper">
+                        <div _ngcontent-cil-c81="" class="game gui-bg-gradient">
+                            <div _ngcontent-cil-c81="" class="game-header-wrapper ng-star-inserted">
+                                <div _ngcontent-cil-c81="" class="game-header position-relative">
+                                    <app-header _ngcontent-cil-c81="" _nghost-cil-c73="">
+                                        <div _ngcontent-cil-c73="" class="d-flex align-items-center h-100 c-header ng-star-inserted">
+                                            <!---->
+                                            <div _ngcontent-cil-c73="" ngbdropdown="" placement="bottom-left top-left" class="btn-game-dd ng-star-inserted dropdown">
+                                                <button _ngcontent-cil-c73="" ngbdropdowntoggle="" class="dropdown-toggle btn btn-game w-100 h-100" aria-expanded="false">
+                                                    <span _ngcontent-cil-c73="" class="centered-xy">Mines </span>
+                                                </button>
+                                                <div _ngcontent-cil-c73="" ngbdropdownmenu="" class="shadow game-navigation dropdown-menu" x-placement="bottom-left">
+                                                    <div _ngcontent-cil-c73="" class="dropdown-items-wrapper">
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/dice?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="31" viewBox="0 0 34 31" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#6A2DB3" fill-rule="evenodd" _ngcontent-cil-c73="">
+                                                                        <path d="M19.312 30.763c-.52 0-1.04-.063-1.551-.19L1.854 26.64A2.437 2.437 0 0 1 0 24.27V12.1a.654.654 0 0 1 1.307 0V24.27c0 .521.355.974.86 1.1l15.908 3.934a5.148 5.148 0 0 0 2.888-.123l10.961-3.72c.46-.157.768-.587.768-1.072v-1.898a.653.653 0 1 1 1.308 0v1.898a2.44 2.44 0 0 1-1.656 2.31l-10.96 3.72a6.462 6.462 0 0 1-2.072.343M.654 10.617A.654.654 0 0 1 0 9.963v-.086a.654.654 0 0 1 1.308 0v.086c0 .361-.293.654-.654.654M33.346 21.14a.654.654 0 0 1-.654-.653V6.147c0-.495-.317-.929-.79-1.078l-11.07-3.52a5.174 5.174 0 0 0-2.645-.126L2.201 4.882a1.14 1.14 0 0 0-.893 1.107v1.84a.654.654 0 0 1-1.308 0v-1.84c0-1.141.81-2.144 1.924-2.385L17.91.145a6.467 6.467 0 0 1 3.32.157l11.069 3.52A2.431 2.431 0 0 1 34 6.149v14.339c0 .36-.293.653-.654.653" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M26.408 14.067a.896.896 0 0 0-.895.895.896.896 0 0 0 1.789 0 .896.896 0 0 0-.894-.895m0 3.097a2.204 2.204 0 0 1-2.202-2.202c0-1.215.987-2.202 2.202-2.202 1.215 0 2.202.987 2.202 2.202a2.204 2.204 0 0 1-2.202 2.202M9.98 14.067a.896.896 0 0 0-.894.895c0 .493.401.894.894.894a.896.896 0 0 0 .895-.894.896.896 0 0 0-.895-.895m0 3.097a2.204 2.204 0 0 1-2.202-2.202c0-1.215.987-2.202 2.202-2.202 1.215 0 2.202.987 2.202 2.202a2.204 2.204 0 0 1-2.202 2.202M5.864 8.776a.896.896 0 0 0-.894.894c0 .493.401.894.894.894a.896.896 0 0 0 .895-.894.896.896 0 0 0-.895-.894m0 3.096A2.204 2.204 0 0 1 3.662 9.67c0-1.215.987-2.202 2.202-2.202 1.215 0 2.202.987 2.202 2.202a2.204 2.204 0 0 1-2.202 2.202M5.864 19.066a.896.896 0 0 0-.894.894c0 .493.401.895.894.895a.896.896 0 0 0 .895-.895.896.896 0 0 0-.895-.894m0 3.096a2.204 2.204 0 0 1-2.202-2.202c0-1.215.987-2.202 2.202-2.202 1.215 0 2.202.987 2.202 2.202a2.204 2.204 0 0 1-2.202 2.202M14.39 7.893a.896.896 0 0 0-.895.895.896.896 0 0 0 1.789 0 .896.896 0 0 0-.894-.895m0 3.097a2.204 2.204 0 0 1-2.202-2.202c0-1.215.987-2.203 2.202-2.203 1.215 0 2.202.988 2.202 2.203a2.204 2.204 0 0 1-2.202 2.202M14.39 20.23a.896.896 0 0 0-.895.894.896.896 0 0 0 1.789 0 .896.896 0 0 0-.894-.894m0 3.096a2.204 2.204 0 0 1-2.202-2.202c0-1.215.987-2.202 2.202-2.202 1.215 0 2.202.987 2.202 2.202a2.204 2.204 0 0 1-2.202 2.202M19.684 28.45a.654.654 0 0 1-.654-.654V3.032a.654.654 0 0 1 1.308 0v24.764c0 .361-.293.654-.654.654" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Dice</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/plinko?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#09FBF3" fill-rule="evenodd" _ngcontent-cil-c73="">
+                                                                        <path d="M33.4 28.94c-.19 0-.38-.1-.48-.3L21.3 6.39a.55.55 0 1 1 .98-.51L33.9 28.13a.56.56 0 0 1-.5.81M.73 28.94a.55.55 0 0 1-.49-.81L11.9 5.8a.55.55 0 0 1 .74-.24c.28.14.38.48.24.75L1.22 28.65c-.1.19-.3.3-.49.3M18.19 23.14a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M18.19 9.28a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M22.33 29.51a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M14.04 29.51a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M14.04 16.21a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M5.75 29.51a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M26.48 23.14a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M30.62 29.51a1.1 1.1 0 1 0-2.2 0 1.1 1.1 0 0 0 2.2 0M17 6.68A3.34 3.34 0 1 1 18.62.42a.55.55 0 0 1-.54.97 2.22 2.22 0 0 0-3.3 1.95c0 1.23 1 2.23 2.22 2.23a2.23 2.23 0 0 0 2.04-3.12.55.55 0 0 1 1.01-.45A3.34 3.34 0 0 1 17 6.68M8.8 26.48a3.34 3.34 0 1 1 1.62-6.26.55.55 0 0 1-.54.97 2.22 2.22 0 0 0-3.31 1.95 2.23 2.23 0 1 0 4.27-.9.55.55 0 1 1 1.01-.44 3.34 3.34 0 0 1-3.05 4.68M21.23 19.55a3.34 3.34 0 1 1 1.63-6.26.55.55 0 0 1-.54.97A2.22 2.22 0 0 0 19 16.2a2.23 2.23 0 1 0 4.27-.9c-.13-.27 0-.6.28-.72.28-.13.6 0 .73.28a3.34 3.34 0 0 1-3.05 4.68" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M31.63 33.4H2.37A2.38 2.38 0 0 1 0 31a.55.55 0 1 1 1.1 0c0 .7.57 1.27 1.27 1.27h29.26c.7 0 1.26-.56 1.26-1.27a.55.55 0 1 1 1.11 0 2.38 2.38 0 0 1-2.37 2.38" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Plinko</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/goal?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#26A52B" fill-rule="evenodd" _ngcontent-cil-c73="">
+                                                                        <path d="M2.426 3.019a.576.576 0 0 1-.41-.98l.072-.072a.575.575 0 1 1 .798.831l-.05.049a.574.574 0 0 1-.41.172M32.132 23.622l-.213-.001-.224-.002-.224.002c-.657.004-1.28.01-1.707-.414-.249-.247-.374-.593-.374-1.028V6.91a2.304 2.304 0 0 0-2.301-2.3H6.912a2.304 2.304 0 0 0-2.302 2.3V22.18c0 .435-.126.781-.374 1.028-.427.424-1.048.419-1.707.414l-.224-.002-.224.002c-.657.004-1.28.01-1.707-.414C.126 22.96 0 22.614 0 22.179V6.91c0-1.114.273-2.223.79-3.205a.576.576 0 1 1 1.02.536 5.759 5.759 0 0 0-.657 2.67v15.267c0 .163.032.21.033.21.086.085.587.083.886.08l.233-.002.233.001c.298.003.8.006.886-.08 0 0 .034-.046.034-.21V6.912a3.457 3.457 0 0 1 3.454-3.453h20.177a3.458 3.458 0 0 1 3.453 3.453V22.18c0 .163.033.21.034.21.086.085.587.083.886.08l.233-.002.233.001c.298.003.8.006.886-.08 0 0 .033-.046.033-.21v-2.88a.576.576 0 0 1 1.153 0v2.88c0 .436-.126.782-.374 1.029-.38.378-.916.415-1.494.415" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M33.424 18.145a.576.576 0 0 1-.577-.576V6.91a5.765 5.765 0 0 0-5.759-5.759H6.912c-.914 0-1.787.209-2.597.62A.576.576 0 1 1 3.793.744 6.826 6.826 0 0 1 6.912 0h20.176A6.92 6.92 0 0 1 34 6.91V17.57a.576.576 0 0 1-.576.576M23.211 25.477a4.36 4.36 0 0 1-3.777-6.523.576.576 0 0 1 .999.574 3.206 3.206 0 0 0 2.778 4.797 3.206 3.206 0 0 0 3.203-3.203 3.206 3.206 0 0 0-4.557-2.903.577.577 0 0 1-.489-1.044 4.36 4.36 0 0 1 6.198 3.947 4.36 4.36 0 0 1-4.355 4.355" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M19.766 12.67h3.17V9.5h-3.17v3.17Zm-4.322 0h3.17V9.5h-3.17v3.17Zm-4.322 4.322h3.17v-3.169h-3.17v3.17Zm0 4.322h3.17v-3.169h-3.17v3.17Zm0-8.644h3.17V9.5h-3.17v3.17Zm16.035 0h-3.07V9.5h3.07a.576.576 0 0 0 0-1.152h-3.07V6.331a.576.576 0 1 0-1.152 0v2.017h-3.17V6.331a.576.576 0 1 0-1.152 0v2.017h-3.17V6.331a.576.576 0 1 0-1.152 0v2.017h-3.17V6.331a.576.576 0 1 0-1.152 0v2.017H6.9a.576.576 0 1 0 0 1.153h3.07v3.17H6.9a.576.576 0 1 0 0 1.152h3.07v3.17H6.9a.576.576 0 1 0 0 1.152h3.07v3.17H6.9a.576.576 0 1 0 0 1.152H17a.576.576 0 0 0 0-1.153h-1.556v-3.169H17a.576.576 0 0 0 0-1.153h-1.556v-3.169h3.17v1.44a.576.576 0 0 0 1.152 0v-1.44h3.17v1.44a.576.576 0 0 0 1.152 0v-1.44h3.069a.576.576 0 0 0 0-1.153Z" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Goal</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/hi-lo?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="33" viewBox="0 0 34 33" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#D27E1B" fill-rule="evenodd" _ngcontent-cil-c73="">
+                                                                        <path d="M31.4 23.18h-3.5a.58.58 0 0 1-.59-.59c0-.32.26-.58.58-.58h3.51c.74 0 1.33-.6 1.33-1.33V2.5c0-.74-.6-1.33-1.33-1.33H20.15c-.74 0-1.33.6-1.33 1.33v18.18c0 .73.6 1.33 1.33 1.33h3.54a.58.58 0 0 1 0 1.17h-3.54a2.5 2.5 0 0 1-2.5-2.5V2.5a2.5 2.5 0 0 1 2.5-2.5H31.4a2.5 2.5 0 0 1 2.5 2.5v18.18a2.5 2.5 0 0 1-2.5 2.5" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M30.38 20.59h-4.44a.58.58 0 0 1-.58-.58c0-.33.26-.59.58-.59h4.44l.01-3.37a.58.58 0 1 1 1.16 0v3.36c0 .65-.53 1.18-1.17 1.18M20.58 7.21a.58.58 0 0 1-.58-.58V3.56c0-.65.53-1.18 1.18-1.18h8.2a.58.58 0 0 1 0 1.17h-8.2l-.02 3.08c0 .32-.26.58-.58.58M13.75 32.5H2.49A2.5 2.5 0 0 1 0 30V11.83a2.5 2.5 0 0 1 2.49-2.5h3.93a.58.58 0 0 1 0 1.17l-3.93-.01c-.73 0-1.33.6-1.33 1.34V30c0 .74.6 1.34 1.33 1.34h11.26c.73 0 1.33-.6 1.33-1.34V11.83c0-.74-.6-1.34-1.33-1.34h-3.8a.58.58 0 0 1-.58-.58c0-.32.26-.59.58-.59h3.8a2.5 2.5 0 0 1 2.49 2.5V30a2.5 2.5 0 0 1-2.5 2.5" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M12.72 29.91h-8.2a.58.58 0 0 1-.59-.58c0-.32.26-.58.58-.58h8.2l.02-3.09a.58.58 0 1 1 1.16 0v3.07c0 .65-.52 1.18-1.17 1.18M2.92 16.54a.58.58 0 0 1-.58-.58v-3.07c0-.65.53-1.18 1.18-1.18h4.14a.58.58 0 0 1 0 1.16H3.52l-.02 3.09c0 .32-.26.58-.58.58M9.95 22.73H6.42a.58.58 0 0 1-.58-.58c0-.33.26-.59.58-.59h3.53a.58.58 0 0 1 0 1.17" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M10.65 23.83a.58.58 0 0 1-.53-.35l-1.9-4.38-1.9 4.38a.58.58 0 0 1-.76.3.58.58 0 0 1-.3-.77l2.43-5.6a.58.58 0 0 1 1.06 0l2.43 5.6a.58.58 0 0 1-.53.82M8.12 8.7a.58.58 0 0 1-.58-.59v-7.1a.58.58 0 1 1 1.16 0v7.1c0 .32-.26.58-.58.58" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M4.85 4.66a.59.59 0 0 1-.42-.99L7.7.3a.6.6 0 0 1 .83 0l3.28 3.38c.22.23.22.6-.01.83a.58.58 0 0 1-.82-.01L8.12 1.54 5.26 4.49a.58.58 0 0 1-.41.17M25.8 31.99a.58.58 0 0 1-.57-.59v-7.1a.58.58 0 1 1 1.16 0v7.1c0 .33-.26.59-.58.59" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M25.8 32.3a.58.58 0 0 1-.4-.18l-3.28-3.38a.58.58 0 0 1 .01-.82c.23-.23.6-.22.82 0l2.86 2.96 2.86-2.95c.22-.23.59-.24.82-.01.23.22.23.6 0 .82l-3.27 3.38a.58.58 0 0 1-.41.18M24.3 10.62a.8.8 0 0 0-.29.05c-.34.14-.53.51-.53 1.04 0 1.01 1.5 2.08 2.3 2.53.8-.45 2.3-1.52 2.3-2.53 0-.54-.2-.93-.54-1.06-.4-.15-.9.05-1.33.52a.6.6 0 0 1-.86 0c-.32-.35-.7-.55-1.05-.55m1.48 4.87a.58.58 0 0 1-.26-.06c-.33-.17-3.2-1.66-3.2-3.72 0-1.02.47-1.81 1.28-2.12.69-.27 1.5-.11 2.17.4.68-.53 1.48-.7 2.18-.43.8.31 1.29 1.11 1.29 2.15 0 2.06-2.88 3.55-3.2 3.72a.57.57 0 0 1-.26.06" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Hi Lo</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted active" href="https://turbo.spribegaming.com/mines?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#0295D0" fill-rule="nonzero" _ngcontent-cil-c73="">
+                                                                        <path d="M24.4 19.39a7.23 7.23 0 1 1 0 14.46 7.23 7.23 0 0 1 0-14.46Zm0 .95a6.27 6.27 0 1 0 0 12.55 6.27 6.27 0 0 0 0-12.55Z" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M33.06 21.2c.37.38.37.98 0 1.36l-2.13 2.13-3.8-4.07 2-2a.96.96 0 0 1 1.35 0l2.58 2.58Zm-.68.68L29.8 19.3l-1.33 1.34 2.48 2.67 1.43-1.43ZM24.33 22.67a.33.33 0 0 1-.19-.06.34.34 0 0 1 .12-.61.34.34 0 0 1 .4.27.33.33 0 0 1-.05.25.33.33 0 0 1-.15.12.34.34 0 0 1-.13.03ZM21.4 29.74a.34.34 0 0 1-.24-.1 4.45 4.45 0 0 1 0-6.34c.5-.5 1.1-.86 1.76-1.08a.34.34 0 1 1 .21.64 3.77 3.77 0 0 0-1.49 6.3.34.34 0 0 1-.24.58ZM22.65.73 20.9 4.3a.36.36 0 0 1-.27.2l-3.93.57a1.32 1.32 0 0 0-.73 2.25l2.84 2.77c.09.08.12.2.1.32l-.67 3.9a1.32 1.32 0 0 0 1.92 1.4l3.5-1.85c.11-.06.24-.06.34 0l3.52 1.85c.96.5 2.1-.32 1.9-1.4l-.66-3.9a.36.36 0 0 1 .1-.32L31.7 7.3c.78-.76.35-2.1-.73-2.25l-3.93-.57a.36.36 0 0 1-.27-.2L25.02.73a1.32 1.32 0 0 0-2.37 0Zm1.5.43 1.76 3.56c.2.39.57.66 1 .72l3.92.57c.3.04.42.4.2.61L28.2 9.4c-.3.3-.45.74-.38 1.17l.67 3.9c.05.3-.26.53-.52.39L24.45 13c-.39-.2-.84-.2-1.23 0l-3.51 1.85a.36.36 0 0 1-.52-.38l.67-3.91c.07-.43-.07-.87-.38-1.17l-2.84-2.77a.36.36 0 0 1 .2-.61l3.92-.57c.43-.06.8-.33 1-.72l1.75-3.56a.36.36 0 0 1 .65 0ZM7.08 10.74 5.33 14.3a.36.36 0 0 1-.27.2l-3.93.57a1.32 1.32 0 0 0-.73 2.25l2.84 2.77c.09.08.12.2.1.32l-.67 3.9a1.32 1.32 0 0 0 1.91 1.4l3.52-1.85c.1-.06.23-.06.33 0l3.51 1.85c.97.5 2.1-.32 1.92-1.4l-.67-3.9a.36.36 0 0 1 .1-.32l2.84-2.77c.78-.76.35-2.1-.73-2.25l-3.93-.57a.36.36 0 0 1-.27-.2l-1.75-3.56a1.32 1.32 0 0 0-2.37 0Zm1.5.43 1.76 3.56c.2.39.57.66 1 .72l3.92.57c.3.04.42.4.2.61l-2.84 2.77c-.31.3-.45.74-.38 1.17l.67 3.9c.05.3-.26.53-.52.39L8.88 23c-.39-.2-.84-.2-1.23 0l-3.51 1.85a.36.36 0 0 1-.52-.38l.67-3.91c.07-.43-.07-.87-.38-1.17l-2.84-2.77a.36.36 0 0 1 .2-.61l3.92-.57c.43-.06.8-.33 1-.72l1.75-3.56a.36.36 0 0 1 .65 0Z" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Mines</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/keno?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#C6084A" fill-rule="evenodd" _ngcontent-cil-c73="">
+                                                                        <path d="M22.293 33.888c-6.375 0-11.56-5.186-11.56-11.561 0-6.374 5.185-11.56 11.56-11.56 6.375 0 11.561 5.186 11.561 11.56 0 2.114-.576 4.183-1.666 5.981a.567.567 0 1 1-.97-.587 10.406 10.406 0 0 0 1.503-5.394c0-5.75-4.678-10.427-10.428-10.427-5.75 0-10.427 4.677-10.427 10.427s4.677 10.427 10.427 10.427c3.076 0 5.98-1.348 7.967-3.699a.567.567 0 0 1 .865.732 11.544 11.544 0 0 1-8.832 4.1" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M8.908 31.621C3.996 31.621 0 27.625 0 22.713c0-4.912 3.996-8.909 8.908-8.909.959 0 1.902.152 2.804.45a.566.566 0 1 1-.356 1.076 7.769 7.769 0 0 0-2.448-.392c-4.287 0-7.775 3.488-7.775 7.775 0 4.287 3.488 7.775 7.775 7.775 1.09 0 2.142-.22 3.13-.656a.566.566 0 1 1 .457 1.037 8.849 8.849 0 0 1-3.587.752M30.897 13.005a.568.568 0 0 1-.522-.787c.405-.959.61-1.977.61-3.026 0-4.288-3.487-7.776-7.774-7.776s-7.775 3.488-7.775 7.776c0 .677.087 1.348.258 1.995a.567.567 0 0 1-1.095.29 8.923 8.923 0 0 1-.296-2.285c0-4.912 3.996-8.909 8.908-8.909 4.912 0 8.908 3.997 8.908 8.909a8.855 8.855 0 0 1-.7 3.467.566.566 0 0 1-.522.346M15.523 22.996a.567.567 0 0 1-.564-.52.803.803 0 0 1-.013-.149.567.567 0 0 1 1.133-.023c.004.03.008.06.01.094a.567.567 0 0 1-.566.598" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M22.293 29.674c-3.236 0-6.134-2.165-7.048-5.266a.566.566 0 1 1 1.087-.32 6.248 6.248 0 0 0 5.961 4.453 6.221 6.221 0 0 0 6.214-6.214 6.22 6.22 0 0 0-6.214-6.214 6.242 6.242 0 0 0-5.97 4.482.567.567 0 0 1-1.088-.314c.903-3.122 3.806-5.3 7.058-5.3 4.051 0 7.347 3.295 7.347 7.346s-3.296 7.347-7.347 7.347M4.193 14.143a.565.565 0 0 1-.42-.186 7.381 7.381 0 0 1-1.918-4.97c0-4.08 3.32-7.399 7.4-7.399a7.34 7.34 0 0 1 5.328 2.266.566.566 0 1 1-.816.786 6.215 6.215 0 0 0-4.513-1.919A6.273 6.273 0 0 0 2.99 8.987a6.25 6.25 0 0 0 1.624 4.208.566.566 0 0 1-.42.948" _ngcontent-cil-c73=""></path>
+                                                                        <path d="m24.83 20.374-2.615 4.941v.002l-.008.012-.02.033-.007.011a.918.918 0 0 1-.065.078l-.004.004a.463.463 0 0 1-.035.032l-.005.005a.69.69 0 0 1-.082.055l-.015.008c-.01.006-.022.011-.033.016a.726.726 0 0 1-.022.01l-.03.01a.58.58 0 0 1-.053.015l-.02.004a.483.483 0 0 1-.107.01h-.001a.541.541 0 0 1-.053-.002h-.01a.53.53 0 0 1-.047-.008l-.014-.003a.944.944 0 0 1-.038-.01l-.02-.006a.428.428 0 0 1-.03-.011l-.02-.008a.57.57 0 0 1-.174-.12l-.012-.012a.37.37 0 0 1-.026-.03l-.009-.011a.558.558 0 0 1-.027-.038.57.57 0 0 1-.092-.28l-.002-.031v-.003l.001-.02.002-.034a.41.41 0 0 1 .008-.056l.008-.033.005-.021a.578.578 0 0 1 .014-.04l.005-.013a.535.535 0 0 1 .021-.045l.003-.006.001-.002c0-.002.002-.004.003-.005l2.19-4.139h-2.263a.574.574 0 0 1 0-1.147h3.218c.393 0 .73.414.48.888M7.33 19.61Zm-.076.075.028-.03c-.01.009-.018.02-.028.03Zm-.036.047Zm-.073.151Zm-.027.173Zm1.147 4.991a.574.574 0 1 1-1.147 0v-4.201l-.542.176h-.002l-.021.006a.536.536 0 0 1-.03.008l-.02.004a.56.56 0 0 1-.037.006l-.014.001a.574.574 0 0 1-.23-1.116l.003-.002.005-.001 1.253-.407-.01.004.026-.009-.016.005.032-.011.008-.002a.524.524 0 0 1 .051-.014c.004 0 .008 0 .011-.002a.495.495 0 0 1 .005 0c.012-.003.024-.005.037-.006h.001l.015-.001.021-.002-.02.002a.574.574 0 0 1 .62.571l.001 4.99v.001ZM10.771 9.478c0 .034-.001.068-.003.101v.001c-.1 1.73-2.744 2.506-3.76.927l-.016-.03a.468.468 0 0 1-.021-.043l-.005-.01a.545.545 0 0 1-.013-.036l-.004-.012a.395.395 0 0 1-.01-.036c0-.005-.002-.01-.003-.014a.418.418 0 0 1-.005-.036l-.002-.015-.002-.036v-.017l.001-.029c0-.008 0-.017.002-.025l.002-.013a.517.517 0 0 1 .948-.206c.485.751 1.823.277 1.856-.429a.831.831 0 0 0-.024-.241c-.086-.354-.352-.538-.716-.604-.33-.058-.709-.014-1.036.056-.62.132-.827-.64-.426-.924l1.051-.99H7.443a.517.517 0 1 1 0-1.035H9.89c.072 0 .142.016.204.043.39.168.391.667.113.886l-1.008.95c.998.186 1.572.944 1.573 1.817M21.825 5.136h.005-.005M25.021 7.843v.002c-.102 1.76-2.728 2.555-3.747.971h.001a.515.515 0 1 1 .866-.557c.486.756 1.804.278 1.851-.475a.788.788 0 0 0-.03-.26c-.21-.736-1.291-.608-2.031-.406-.469.128-.723-.286-.646-.623a.475.475 0 0 0-.016.092l.097-1.985v.031a.503.503 0 0 1 .158-.381c-.02.02.068-.079.202-.12-.006.001.064-.024.157-.024h2.465a.515.515 0 1 1 0 1.031h-1.976l-.041.84c.203-.03.41-.049.616-.049 1.437 0 2.13.933 2.074 1.913" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Keno</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/mini-roulette?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#018033" fill-rule="evenodd" _ngcontent-cil-c73="">
+                                                                        <path d="M5.45 5.915a.596.596 0 0 1-.422-1.018c.046-.047.092-.092.14-.137a.597.597 0 1 1 .824.862l-.12.118a.594.594 0 0 1-.422.175M22.248 22.248a.98.98 0 0 1-1.669-.691c0-.262.102-.507.286-.692a1.001 1.001 0 0 1 1.383 0 .98.98 0 0 1 0 1.383m-6.022-4.64a.979.979 0 0 1 1.382-1.382.979.979 0 0 1 0 1.382 1 1 0 0 1-1.382 0m-3.257 4.64a.979.979 0 0 1-1.383-1.383.971.971 0 0 1 .691-.286c.262 0 .507.101.692.286.184.185.286.43.286.692a.971.971 0 0 1-.286.691m-1.383-9.28a.97.97 0 0 1-.287-.69c0-.262.102-.507.287-.692a.971.971 0 0 1 .691-.287.97.97 0 0 1 .692.287c.184.185.286.43.286.691a.972.972 0 0 1-.286.692c-.37.369-1.014.369-1.383 0m9.28-1.383a.971.971 0 0 1 .69-.287.97.97 0 0 1 .692.287c.185.185.286.43.286.691a.97.97 0 0 1-.286.691c-.37.37-1.014.37-1.383 0a.97.97 0 0 1-.286-.69c0-.262.102-.507.286-.692m.692 7.8c-.376 0-.735.095-1.054.273l-1.69-1.69a2.177 2.177 0 0 0 0-2.105l1.69-1.69c.319.178.678.274 1.054.274.58 0 1.125-.226 1.534-.636.41-.41.636-.955.636-1.535s-.225-1.125-.635-1.535a2.157 2.157 0 0 0-1.535-.636c-.58 0-1.125.226-1.535.636-.41.41-.636.955-.636 1.535 0 .375.096.735.274 1.054l-1.69 1.69a2.177 2.177 0 0 0-2.106 0l-1.69-1.69c.178-.319.274-.679.274-1.054 0-.58-.226-1.125-.636-1.535a2.157 2.157 0 0 0-1.535-.636c-.58 0-1.125.226-1.534.636-.41.41-.637.955-.637 1.535s.226 1.125.636 1.535c.41.41.956.636 1.535.636.375 0 .735-.096 1.054-.273l1.69 1.69a2.177 2.177 0 0 0 0 2.105l-1.69 1.69a2.157 2.157 0 0 0-1.054-.274c-.58 0-1.125.226-1.534.636-.41.41-.637.955-.637 1.535s.226 1.124.637 1.534c.423.424.979.635 1.534.635.556 0 1.112-.211 1.535-.635.41-.41.636-.955.636-1.534 0-.376-.096-.735-.274-1.054l1.69-1.689a2.157 2.157 0 0 0 2.108 0l1.688 1.689a2.157 2.157 0 0 0-.274 1.054c0 .58.226 1.124.636 1.534.423.424.979.635 1.535.635.555 0 1.111-.211 1.534-.635.41-.41.636-.955.636-1.534 0-.58-.225-1.125-.635-1.535a2.157 2.157 0 0 0-1.535-.636" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M27.782 22.525a.594.594 0 0 0-.119-.051 12.014 12.014 0 0 0 1.342-4.96h3.622a15.686 15.686 0 0 1-1.818 6.766l-3.027-1.755ZM17.513 27.81v-1.663a.596.596 0 1 0-1.193 0v1.663c-5.541-.3-9.996-4.755-10.296-10.297h1.663a.596.596 0 1 0 0-1.193H6.024c.3-5.541 4.755-9.996 10.296-10.296v1.663a.597.597 0 0 0 1.193 0V6.024c5.542.3 9.997 4.755 10.297 10.296h-1.663a.597.597 0 0 0 0 1.193h1.663c-.3 5.542-4.755 9.997-10.297 10.297Zm4.975-.009 1.744 3.033a15.69 15.69 0 0 1-6.719 1.793v-3.622a12.014 12.014 0 0 0 4.924-1.323c.013.04.03.08.051.119Zm-6.168 4.825a15.61 15.61 0 0 1-6.764-1.82l1.753-3.024a.618.618 0 0 0 .052-.119 12.016 12.016 0 0 0 4.96 1.342v3.62ZM3.6 25.263l3.028-1.74a.59.59 0 0 0 .105-.08 12.197 12.197 0 0 0 3.622 3.636.603.603 0 0 0-.079.105l-1.75 3.02a15.842 15.842 0 0 1-4.925-4.94Zm-2.392-7.75h3.621a12.018 12.018 0 0 0 1.323 4.924.576.576 0 0 0-.119.051l-3.03 1.743a15.616 15.616 0 0 1-1.795-6.718Zm4.844-6.204a.576.576 0 0 0 .12.05 12.013 12.013 0 0 0-1.343 4.961H1.205c.088-2.396.707-4.69 1.815-6.769l3.032 1.758Zm5.294-5.276L9.599 2.995a15.568 15.568 0 0 1 6.721-1.79v3.624a12.01 12.01 0 0 0-4.923 1.323.593.593 0 0 0-.051-.12Zm6.167-4.825a15.61 15.61 0 0 1 6.765 1.82l-1.753 3.024a.591.591 0 0 0-.051.118 12.012 12.012 0 0 0-4.96-1.34V1.207Zm12.72 7.362-3.027 1.741a.592.592 0 0 0-.105.079 12.195 12.195 0 0 0-3.624-3.636.577.577 0 0 0 .08-.104l1.751-3.02a15.837 15.837 0 0 1 4.926 4.94Zm-1.228 7.75a12.01 12.01 0 0 0-1.324-4.925.578.578 0 0 0 .12-.05l3.03-1.742a15.61 15.61 0 0 1 1.795 6.717h-3.621ZM16.917 0a16.776 16.776 0 0 0-10.11 3.352.596.596 0 1 0 .714.956c.34-.254.688-.493 1.044-.717l1.746 3.037a.59.59 0 0 0 .08.104 12.196 12.196 0 0 0-3.636 3.623.594.594 0 0 0-.105-.079L3.622 8.521c.282-.444.584-.878.913-1.297a.596.596 0 1 0-.939-.736A16.745 16.745 0 0 0 0 16.917c0 9.328 7.589 16.917 16.917 16.917 4.194 0 8.217-1.546 11.328-4.353a.597.597 0 0 0-.799-.886 15.723 15.723 0 0 1-2.18 1.644l-1.744-3.033a.614.614 0 0 0-.078-.105 12.194 12.194 0 0 0 3.634-3.622c.032.029.067.056.106.079l3.026 1.754a15.722 15.722 0 0 1-1.615 2.134.596.596 0 1 0 .886.8 16.883 16.883 0 0 0 4.353-11.33C33.834 7.59 26.245 0 16.917 0Z" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Mini Roulette</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/hotline?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="25" viewBox="0 0 34 25" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <g fill="#0354B6" fill-rule="nonzero" _ngcontent-cil-c73="">
+                                                                        <path d="M12.98 1.005c-1.11 0-2.01.9-2.01 2.01v18.091c0 1.11.9 2.01 2.01 2.01h8.04c1.11 0 2.01-.9 2.01-2.01V3.016c0-1.111-.9-2.01-2.01-2.01h-8.04Zm0-1.005h8.04a3.015 3.015 0 0 1 3.015 3.015v18.091a3.015 3.015 0 0 1-3.015 3.016h-8.04a3.015 3.015 0 0 1-3.015-3.016V3.016A3.015 3.015 0 0 1 12.98 0Z" _ngcontent-cil-c73=""></path>
+                                                                        <path d="M17 15.076a3.015 3.015 0 1 0 0-6.03 3.015 3.015 0 0 0 0 6.03Zm0 1.005a4.02 4.02 0 1 1 0-8.04 4.02 4.02 0 0 1 0 8.04ZM33.584 19.486v1.005h-3.518a3.518 3.518 0 0 1-3.518-3.518V7.035a3.518 3.518 0 0 1 3.518-3.517h3.518v1.005h-3.518a2.513 2.513 0 0 0-2.513 2.512v9.938a2.513 2.513 0 0 0 2.513 2.513h3.518ZM.416 19.486v1.005h3.518a3.518 3.518 0 0 0 3.518-3.518V7.035a3.518 3.518 0 0 0-3.518-3.517H.416v1.005h3.518a2.513 2.513 0 0 1 2.513 2.512v9.938a2.513 2.513 0 0 1-2.513 2.513H.416Z" _ngcontent-cil-c73=""></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Hotline</span>
+                                                        </a>
+                                                        <a _ngcontent-cil-c73="" routerlinkactive="active" ngbdropdownitem="" queryparamshandling="preserve" class="dropdown-item mt-3 gui-text d-flex flex-column align-items-center ng-star-inserted" href="https://turbo.spribegaming.com/balloon?currency=USD&amp;operator=demo&amp;jurisdiction=CW&amp;lang=EN&amp;return_url=https:%2F%2Fspribe.co%2Fgames&amp;user=17308&amp;token=MJxCzZQK2fvotfNxf96lcutUHeBUG1bf" tabindex="0">
+                                                            <svg-icon _ngcontent-cil-c73="" class="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="34" fill="none" viewBox="0 0 26 34" _ngcontent-cil-c73="" aria-hidden="true">
+                                                                    <path fill="#891140" d="M12.8 0C5.8 0 0 5.3 0 11.7c0 3.9 2 7.5 5.6 9.7a4 4 0 0 1 1.9 3.4v.1c0 .4.3.6.6.6h1.4v3h-.7c-.4 0-.7.3-.7.6v4.3c0 .3.3.6.7.6h8c.3 0 .6-.3.6-.6V29a.6.6 0 0 0-.6-.6H16v-3h1.3c.4 0 .7-.2.7-.6v-.1a4 4 0 0 1 1.9-3.4c3.5-2.2 5.6-5.8 5.6-9.7C25.6 5.3 19.8 0 12.8 0Zm2 24.3h-1.4v-23c3.2.6 5.7 5 5.7 10.4 0 3.5-1 6.8-2.9 8.7-.8 1-1.3 2.3-1.4 3.9Zm-4 0c-.1-1.6-.6-3-1.5-3.9-1.7-2-2.8-5.2-2.8-8.7C6.5 6.3 9 2 12.1 1.3v23h-1.3Zm-4.5-4c-3.2-2-5-5.2-5-8.6 0-4.4 3-8.2 7.3-9.7-2 2.1-3.4 5.7-3.4 9.7 0 3.8 1.2 7.4 3.2 9.6.6.6 1 1.8 1 3h-.6a5.3 5.3 0 0 0-2.5-4Zm9.9 12.4H9.4v-3h6.8v3Zm-5.4-4.2v-3h4v3h-4Zm8.5-8.2a5.3 5.3 0 0 0-2.5 4h-.7c0-1.2.5-2.4 1-3 2-2.2 3.2-5.8 3.2-9.6 0-4-1.3-7.6-3.3-9.7 4.3 1.5 7.3 5.3 7.3 9.7 0 3.4-1.9 6.7-5 8.6Z" _ngcontent-cil-c73=""></path>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <span _ngcontent-cil-c73="" class="mt-1">Balloon</span>
+                                                        </a>
+                                                        <!---->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            <button _ngcontent-cil-c73="" type="button" class="btn how">
+                                                <svg-icon _ngcontent-cil-c73="" src="assets/icons/icon-question.svg">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" _ngcontent-cil-c73="" aria-hidden="true">
+                                                        <g fill="#FFF" _ngcontent-cil-c73="">
+                                                            <path d="M8.67 12a.67.67 0 1 1-1.34 0 .67.67 0 0 1 1.34 0z" _ngcontent-cil-c73=""></path>
+                                                            <path d="M8 16A8 8 0 0 1 8 0a8 8 0 0 1 0 16zM8 1a7 7 0 1 0 .02 14.02A7 7 0 0 0 8 1z" _ngcontent-cil-c73=""></path>
+                                                            <path d="M8 9.83a.5.5 0 0 1-.5-.5v-.67c0-.64.4-1.2 1-1.42.8-.28 1.33-1.12 1.33-1.74A1.83 1.83 0 0 0 8 3.67 1.83 1.83 0 0 0 6.17 5.5a.5.5 0 0 1-1 0A2.84 2.84 0 0 1 8 2.67a2.84 2.84 0 0 1 2.83 2.83c0 1.11-.87 2.3-2 2.69a.5.5 0 0 0-.33.47v.67a.5.5 0 0 1-.5.5z" _ngcontent-cil-c73=""></path>
+                                                        </g>
+                                                    </svg>
+                                                </svg-icon>
+                                                <span _ngcontent-cil-c73="">How to Play?</span>
+                                            </button>
+                                            <!---->
+                                            <!---->
+                                            <div _ngcontent-cil-c73="" class="balance text-white mr-2 d-flex align-items-center ml-auto">
+                                                <app-max-win _ngcontent-cil-c73="" class="max-win mr-2" _nghost-cil-c71="">
+                                                <!---->
+                                                <!---->
+                                                <!---->
+                                                </app-max-win>
+                                                <!---->
+                                                3,000.38 <span _ngcontent-cil-c73="" class="text-white-50 ml-1">USD</span>
+                                            </div>
+                                            <div _ngcontent-cil-c73="" ngbdropdown="" placement="bottom-right top-right" class="btn-user-menu ng-star-inserted dropdown">
+                                                <button _ngcontent-cil-c73="" ngbdropdowntoggle="" class="dropdown-toggle btn btn-game user-menu" aria-expanded="false"></button>
+                                                <div _ngcontent-cil-c73="" ngbdropdownmenu="" class="shadow dropdown-menu" x-placement="bottom-right">
+                                                    <app-user-menu _ngcontent-cil-c73="" _nghost-cil-c72="">
+                                                        <div _ngcontent-cil-c72="" class="user-menu px-2 ng-star-inserted">
+                                                            <div _ngcontent-cil-c72="" class="d-flex align-items-center">
+                                                                <span _ngcontent-cil-c72="" class="text-truncate username">KNYAZ</span>
+                                                            </div>
+                                                            <div _ngcontent-cil-c72="">
+                                                                <div _ngcontent-cil-c72="" class="mt-2 list-group list-group-flush">
+                                                                    <div _ngcontent-cil-c72="" class="list-group-item list-group-item-bg gui-text rounded">
+                                                                        <div _ngcontent-cil-c72="" class="d-flex w-100 align-items-center justify-content-between">
+                                                                            <div _ngcontent-cil-c72="" class="d-flex align-items-center">
+                                                                                <i _ngcontent-cil-c72="" class="ml-3 icon volume"></i>
+                                                                                <span _ngcontent-cil-c72="" class="ml-2">Sound</span>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c72="" class="custom-control custom-switch d-flex align-items-center">
+                                                                                <input _ngcontent-cil-c72="" type="checkbox" name="volumeSound" id="switch-sound" class="custom-control-input">
+                                                                                <label _ngcontent-cil-c72="" for="switch-sound" class="custom-control-label">&nbsp;</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div _ngcontent-cil-c72="" class="list-group-item list-group-item-action gui-text dropdown-item">
+                                                                        <div _ngcontent-cil-c72="" class="d-flex w-100 align-items-center">
+                                                                            <svg-icon _ngcontent-cil-c72="" src="assets/icons/icon-question.svg" class="ml-3">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" _ngcontent-cil-c72="" aria-hidden="true">
+                                                                                    <g fill="#FFF" _ngcontent-cil-c72="">
+                                                                                        <path d="M8.67 12a.67.67 0 1 1-1.34 0 .67.67 0 0 1 1.34 0z" _ngcontent-cil-c72=""></path>
+                                                                                        <path d="M8 16A8 8 0 0 1 8 0a8 8 0 0 1 0 16zM8 1a7 7 0 1 0 .02 14.02A7 7 0 0 0 8 1z" _ngcontent-cil-c72=""></path>
+                                                                                        <path d="M8 9.83a.5.5 0 0 1-.5-.5v-.67c0-.64.4-1.2 1-1.42.8-.28 1.33-1.12 1.33-1.74A1.83 1.83 0 0 0 8 3.67 1.83 1.83 0 0 0 6.17 5.5a.5.5 0 0 1-1 0A2.84 2.84 0 0 1 8 2.67a2.84 2.84 0 0 1 2.83 2.83c0 1.11-.87 2.3-2 2.69a.5.5 0 0 0-.33.47v.67a.5.5 0 0 1-.5.5z" _ngcontent-cil-c72=""></path>
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </svg-icon>
+                                                                            <span _ngcontent-cil-c72="" class="ml-2">How to Play </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div _ngcontent-cil-c72="" class="list-group-item list-group-item-action gui-text dropdown-item">
+                                                                        <div _ngcontent-cil-c72="" class="d-flex w-100 align-items-center">
+                                                                            <i _ngcontent-cil-c72="" class="ml-3 icon rules"></i>
+                                                                            <span _ngcontent-cil-c72="" class="ml-2">Game Rules </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div _ngcontent-cil-c72="" class="list-group-item list-group-item-action rounded-bottom gui-text dropdown-item">
+                                                                        <div _ngcontent-cil-c72="" class="d-flex w-100 align-items-center">
+                                                                            <i _ngcontent-cil-c72="" class="ml-3 icon scales"></i>
+                                                                            <span _ngcontent-cil-c72="" class="ml-2">Provably Fair Settings </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div _ngcontent-cil-c72="" class="mt-2 ng-star-inserted">
+                                                                <div _ngcontent-cil-c72="" class="d-flex align-items-center justify-content-center">
+                                                                    <a _ngcontent-cil-c72="" href="javascript:void(0)">
+                                                                        <span _ngcontent-cil-c72="" class="d-flex align-items-center back-to-home gui-text">
+                                                                            <i _ngcontent-cil-c72="" class="icon home"></i>
+                                                                            <span _ngcontent-cil-c72="" class="ml-2">Back to Home </span>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
+                                                                <hr _ngcontent-cil-c72="">
+                                                            </div>
+                                                            <!---->
+                                                            <div _ngcontent-cil-c72="" class="mt-2 d-flex justify-content-between align-items-center">
+                                                                <div _ngcontent-cil-c72="" class="d-flex align-items-center provably-fair-wrapper dropdown-item">
+                                                                    <i _ngcontent-cil-c72="" class="icon provably-fair"></i>
+                                                                    <span _ngcontent-cil-c72="" class="ml-1">Provably Fair Game </span>
+                                                                </div>
+                                                                <div _ngcontent-cil-c72="" class="d-flex align-items-center">
+                                                                    <span _ngcontent-cil-c72="">©</span>
+                                                                    <a _ngcontent-cil-c72="" target="_blank" class="dropdown-item" href="https://spribe.co/">
+                                                                        <i _ngcontent-cil-c72="" class="ml-1 d-block icon logo"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!---->
+                                                        <!---->
+                                                    </app-user-menu>
+                                                </div>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                    </app-header>
+                                    <!---->
+                                </div>
+                            </div>
+                            <router-outlet _ngcontent-cil-c81="" class="ng-star-inserted"></router-outlet>
+                            <app-mines _nghost-cil-c95="" class="ng-star-inserted">
+                                <div _ngcontent-cil-c95="" class="game-body">
+                                    <app-mines-grid _ngcontent-cil-c95="" _nghost-cil-c83="" class="ng-star-inserted">
+                                        <div _ngcontent-cil-c83="" class="mines-wrapper">
+                                            <div _ngcontent-cil-c83="" class="mines-game">
+                                                <div _ngcontent-cil-c83="" class="mines-header">
+                                                    <div _ngcontent-cil-c83="" class="mines-header-info">
+                                                        <div _ngcontent-cil-c83="" class="number-of-mines">
+                                                            <div _ngcontent-cil-c83="" ngbdropdown="" placement="bottom-left" class="dd dropdown">
+                                                                <button _ngcontent-cil-c83="" ngbdropdowntoggle="" id="minesSelectBtn" class="dropdown-toggle btn btn-game" aria-expanded="false">
+                                                                    <span class="centered-xy">
+                                                                        Mines: 3
+                                                                        <span class="icon-wrapper" style="display: inline-block; position: relative; left: 35px;">
+                                                                            <img src="icon-dd-arrow.e394e8c554623388.svg" alt="Dropdown Arrow" width="10" height="10" />
+                                                                        </span>
+                                                                        </span>                                                                    
+                                                                </button>
+                                                                <div _ngcontent-cil-c83="" ngbdropdownmenu="" class="shadow dropdown-list-number dropdown-menu" x-placement="bottom-left">
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">1 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">2 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg ng-star-inserted" tabindex="0">3 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">4 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">5 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">6 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">7 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">8 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">9 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">10 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">11 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">12 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">13 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">14 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">15 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">16 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">17 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">18 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">19 </button>
+                                                                    <button _ngcontent-cil-c83="" ngbdropdownitem="" class="dropdown-item py-0 text-white size-text gui-bg-100 ng-star-inserted" tabindex="0">20 </button>
+                                                                    <!---->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <app-max-win _ngcontent-cil-c83="" class="max-win" _nghost-cil-c71="">
+                                                        <!---->
+                                                        <!---->
+                                                        <!---->
+                                                        </app-max-win>
+                                                        <div _ngcontent-cil-c83="" class="next-tile px-3 text-dark bg-warning">
+                                                            <!---->
+                                                            <span _ngcontent-cil-c83="" class="mr-1 ng-star-inserted">Next: </span>
+                                                            <!---->
+                                                            <span _ngcontent-cil-c83="" class="ng-star-inserted">1.10x</span>
+                                                            <!---->
+                                                            <!---->
+                                                            <!---->
+                                                            <!---->
+                                                        </div>
+                                                    </div>
+                                                    <div _ngcontent-cil-c83="" class="progress">
+                                                        <div _ngcontent-cil-c83="" role="progressbar" aria-valuenow="openCellsPercent" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-success" style="width: 0%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div _ngcontent-cil-c83="" class="row-mines">
+                                                    <canvas _ngcontent-cil-c83="" class="d-block mx-auto" width="418" height="324" style="touch-action: none; cursor: inherit;"></canvas>
+                                                </div>
+                                                <div _ngcontent-cil-c83="" class="mines-footer d-flex align-items-center justify-content-center">
+                                                    <button _ngcontent-cil-c83="" class="btn btn-game" disabled="">
+                                                        <span _ngcontent-cil-c83="" class="centered-xy">RANDOM </span>
+                                                    </button>
+                                                    <app-game-mode-toggle _ngcontent-cil-c83="" text="Auto Game" class="w-50 ml-1 ng-untouched ng-pristine ng-valid ng-star-inserted" _nghost-cil-c82="">
+                                                        <div _ngcontent-cil-c82="" class="game-mode-toggle custom-control custom-switch d-flex justify-content-center align-items-center w-100 ng-star-inserted">
+                                                            <svg-icon _ngcontent-cil-c82="" src="assets/icons/icon-auto-game.svg" class="ng-star-inserted">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" _ngcontent-cil-c82="" aria-hidden="true">
+                                                                    <path fill="#FFF" d="M6.32 10.27a.52.52 0 0 0-.4-.87H4.59a6.09 6.09 0 0 1 6.07-6.48c1.61 0 3.08.63 4.17 1.65l1.9-2.22A8.94 8.94 0 0 0 10.65 0a8.94 8.94 0 0 0-6.36 2.64A8.94 8.94 0 0 0 1.66 9.4H.52a.52.52 0 0 0-.39.87l2.56 2.94.54.61 1.93-2.21 1.16-1.34zm14.85-1.71-1.91-2.19-1.19-1.36-1.7 1.94-1.4 1.6a.52.52 0 0 0 .4.88h1.35a6.1 6.1 0 0 1-6.07 5.65 6.05 6.05 0 0 1-3.73-1.27l-1.9 2.22A8.93 8.93 0 0 0 10.66 18a8.94 8.94 0 0 0 6.36-2.64 8.94 8.94 0 0 0 2.63-5.93h1.14c.45 0 .69-.53.39-.87z" _ngcontent-cil-c82=""></path>
+                                                                </svg>
+                                                            </svg-icon>
+                                                            <!---->
+                                                            <!---->
+                                                            <input _ngcontent-cil-c82="" type="checkbox" id="game-mode-toggle" class="custom-control-input ng-untouched ng-pristine ng-valid">
+                                                            <label _ngcontent-cil-c82="" for="game-mode-toggle" class="custom-control-label">Auto Game </label>
+                                                        </div>
+                                                        <!---->
+                                                        <!---->
+                                                    </app-game-mode-toggle>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </app-mines-grid>
+                                    <!---->
+                                </div>
+                                <div _ngcontent-cil-c95="" class="game-footer-wrapper">
+                                    <div _ngcontent-cil-c95="" class="game-footer">
+                                        <app-bet-controls _ngcontent-cil-c95="" _nghost-cil-c90="">
+                                            <div _ngcontent-cil-c90="" class="bet-controls">
+                                                <div _ngcontent-cil-c90="" class="bet-input">
+                                                    <app-bet-input _ngcontent-cil-c90="" _nghost-cil-c87="" class="ng-star-inserted">
+                                                        <div _ngcontent-cil-c87="" class="bet-input ml-auto gui-bg ng-star-inserted">
+                                                            <div _ngcontent-cil-c87="" class="input-wrapper">
+                                                                <app-bet-spinner _ngcontent-cil-c87="" _nghost-cil-c86="" class="ng-untouched ng-valid ng-dirty">
+                                                                    <app-spinner _ngcontent-cil-c86="" _nghost-cil-c85="" class="ng-untouched ng-valid ng-star-inserted ng-dirty">
+                                                                        <div _ngcontent-cil-c85="" ngbdropdown="" class="spinner h-100 dropdown">
+                                                                            <div _ngcontent-cil-c85="" ngbdropdownanchor="" class="dropdown-toggle h-100" aria-expanded="false">
+                                                                                <div _ngcontent-cil-c86="" class="bet-spinner">
+                                                                                    <span _ngcontent-cil-c86="" class="note">Bet USD </span>
+                                                                                    <div _ngcontent-cil-c86="" class="input-wrapper d-flex flex-column justify-content-center align-items-center">
+                                                                                        <div _ngcontent-cil-c86="" class="input roboto-font-b" style="position: relative; overflow: hidden; cursor: text; text-align: center; direction: rtl;">
+                                                                                            <div _ngcontent-cil-c85="" style="display: inline-block; height: 100%; direction: ltr;">0.30</div>
+                                                                                        </div>
+                                                                                        <!---->
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c85="" ngbdropdownmenu="" x-placement="auto" class="dropdown-menu">
+                                                                                <app-numpad _ngcontent-cil-c85="" _nghost-cil-c84="">
+                                                                                    <div _ngcontent-cil-c84="" class="row no-gutters numpad gui-bg gui-border shadow-lg">
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">1 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">2 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">3 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">4 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">5 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">6 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">7 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">8 </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4 ng-star-inserted">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">9 </button>
+                                                                                        </div>
+                                                                                        <!---->
+                                                                                        <div _ngcontent-cil-c84="" class="col-4">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">. </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100" disabled="">0</button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-4">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game w-100">
+                                                                                                <span _ngcontent-cil-c84="" class="d-flex justify-content-center">
+                                                                                                    <i _ngcontent-cil-c84="" class="backspace"></i>
+                                                                                                </span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div _ngcontent-cil-c84="" class="col-12">
+                                                                                            <button _ngcontent-cil-c84="" type="button" class="btn btn-game btn-done w-100 shadow-none border-0">
+                                                                                                <span _ngcontent-cil-c84="" class="d-flex justify-content-center">
+                                                                                                    <i _ngcontent-cil-c84="" class="confirm"></i>
+                                                                                                </span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </app-numpad>
+                                                                            </div>
+                                                                        </div>
+                                                                    </app-spinner>
+                                                                    <!---->
+                                                                    <!---->
+                                                                </app-bet-spinner>
+                                                            </div>
+                                                            <div _ngcontent-cil-c87="" class="input-change d-flex justify-content-center align-items-center">
+                                                                <button _ngcontent-cil-c87="" class="btn btn-game m-0 prev"></button>
+                                                                <div _ngcontent-cil-c87="" ngbdropdown="" class="mx-1 dropup">
+                                                                    <button _ngcontent-cil-c87="" ngbdropdowntoggle="" class="dropdown-toggle btn btn-game m-0 all" aria-expanded="false"></button>
+                                                                    <div _ngcontent-cil-c87="" ngbdropdownmenu="" class="fast-bets-menu px-2 dropdown-menu" x-placement="top">
+                                                                        <span _ngcontent-cil-c87="" class="mx-auto">Bet USD </span>
+                                                                        <div _ngcontent-cil-c87="" class="row no-gutters w-100">
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.10 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.20 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg">0.30 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.40 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.50 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.60 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.70 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">0.80 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">1.20 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">2.00 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">4.00 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">10.00 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">20.00 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">50.00 </button>
+                                                                            </div>
+                                                                            <div _ngcontent-cil-c87="" class="col-6 p-1 ng-star-inserted">
+                                                                                <button _ngcontent-cil-c87="" class="btn btn-game gui-bg-100">100.00 </button>
+                                                                            </div>
+                                                                            <!---->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <button _ngcontent-cil-c87="" class="btn btn-game m-0 next"></button>
+                                                            </div>
+                                                        </div>
+                                                        <!---->
+                                                        <!---->
+                                                    </app-bet-input>
+                                                    <!---->
+                                                    <!---->
+                                                    <app-auto-cashout-countdown _ngcontent-cil-c90="" _nghost-cil-c89="" class="ng-star-inserted">
+                                                        <div _ngcontent-cil-c89="" class="auto-cashout-countdown gui-bg ng-star-inserted" style="display: none;">
+                                                            <p _ngcontent-cil-c89="" class="auto-cashout-countdown__label">
+                                                                Auto cashout in: <span _ngcontent-cil-c89="">10 </span>
+                                                            </p>
+                                                            <div _ngcontent-cil-c89="" class="auto-cashout-countdown__wrap-loader">
+                                                                <div _ngcontent-cil-c89="" class="auto-cashout-countdown__loader"></div>
+                                                            </div>
+                                                        </div>
+                                                        <!---->
+                                                        <!---->
+                                                    </app-auto-cashout-countdown>
+                                                    <!---->
+                                                </div>
+                                                <div _ngcontent-cil-c90="" class="controls">
+                                                    <app-controls _ngcontent-cil-c95="" _nghost-cil-c94="">
+                                                        <div _ngcontent-cil-c94="" class="btn-wrapper d-flex ng-star-inserted">
+                                                            <app-autoplay-button _ngcontent-cil-c94="" _nghost-cil-c93="">
+                                                                <button _ngcontent-cil-c93="" type="button" class="btn btn-control btn-auto btn-blue ng-star-inserted" disabled="">
+                                                                    <i _ngcontent-cil-c93="">
+                                                                        <img src="icon-auto-play.4977be4170e6076b.svg" alt="Auto Play Icon" width="27" height="34" style="position: relative; left: -2px;" />
+
+                                                                    </i>
+                                                                </button>
+                                                                <!---->
+                                                            </app-autoplay-button>
+                                                            <button _ngcontent-cil-c94="" class="btn btn-control btn-bet btn-green w-100 ml-2 text-uppercase ng-star-inserted">
+                                                                <i _ngcontent-cil-c94=""></i>
+                                                                <img src="icon-play.284324538612d258.svg" alt="icon" width="23" height="23" 
+                                                                    style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                                                                <span class="btn-text">Bet</span>
+                                                            </button>
+                                                            <!---->
+                                                            <!---->
+                                                        </div>
+                                                        <!---->
+                                                        <!---->
+                                                    </app-controls>
+                                                </div>
+                                            </div>
+                                        </app-bet-controls>
+                                    </div>
+                                </div>
+                            </app-mines>
+                            <!---->
+                            <!---->
+                            <!---->
+                            <app-fun-mode _ngcontent-cil-c81="" _nghost-cil-c75="">
+                                <div _ngcontent-cil-c75="" class="fun-mode ng-star-inserted" style="--mobileTopIndent: 27px;"></div>
+                                <!---->
+                                <!---->
+                            </app-fun-mode>
+                            <!---->
+                            <!---->
+                        </div>
+                    </div>
+                    <app-bs-message _ngcontent-cil-c81="" _nghost-cil-c78="" class="ng-tns-c78-0 ng-star-inserted">
+                        <div _ngcontent-cil-c78="" class="bs-message top-center ng-tns-c78-0">
+                        <!---->
+                        </div>
+                    </app-bs-message>
+                    <app-screen-too-small _ngcontent-cil-c81="" _nghost-cil-c79="">
+                        <div _ngcontent-cil-c79="" class="screen-too-small">
+                            <div _ngcontent-cil-c79="" class="screen-too-small__wrap-text ng-star-inserted">
+                                <svg-icon _ngcontent-cil-c79="" src="assets/icons/screen-too-small.svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="none" viewBox="0 0 128 128" _ngcontent-cil-c79="" aria-hidden="true">
+                                        <path fill="#525252" d="M64.02 111.03C38.28 111.03 17 89.75 17 64.02 17 38.23 38.23 17 63.97 17c25.78 0 47.06 21.23 47.06 47.02 0 25.73-21.28 47.01-47.01 47.01Zm0-6.1a40.88 40.88 0 0 0 40.96-40.91 40.93 40.93 0 0 0-41.01-40.97 40.84 40.84 0 0 0-40.88 40.97 40.84 40.84 0 0 0 40.93 40.92ZM47.66 83.38a2.94 2.94 0 0 1-2.96-2.95c0-.8.28-1.5.9-2.06l14.24-14.3L45.6 49.81c-.6-.6-.89-1.31-.89-2.1a2.86 2.86 0 0 1 2.96-2.87c.84 0 1.5.28 2.1.9l14.2 14.2 14.35-14.2a2.7 2.7 0 0 1 2.06-.99 2.93 2.93 0 0 1 2.07 5.02l-14.3 14.3L82.4 78.3c.61.61.94 1.27.94 2.11a2.94 2.94 0 0 1-5.11 2.02l-14.25-14.2-14.16 14.2c-.6.6-1.31.94-2.15.94Z" _ngcontent-cil-c79=""></path>
+                                    </svg>
+                                </svg-icon>
+                                <h3 _ngcontent-cil-c79="">Screen Too Small.</h3>
+                                <p _ngcontent-cil-c79="">
+                                    The minimum supported resolution is 950x530 pixels. To enjoy the game fully, please increase the size of your browser window or use a device with a larger display. <br _ngcontent-cil-c79="">
+                                    <br _ngcontent-cil-c79="">Thanks for playing! 
+                                </p>
+                            </div>
+                            <!---->
+                            <!---->
+                        </div>
+                    </app-screen-too-small>
+                    <!---->
+                </div>
+                <div _ngcontent-cil-c81="" class="lock-ui d-none"></div>
+            </app-core>
+            <!---->
+            <script src="script/coefficients.js"></script>
+            <script src="script/stavka1.js"></script>
+            <script src="script/screen.js"></script>
+            <script src="script/mines.js"></script>
+            <script src="script/stavka.js"></script>
+            <script src="script/start.js"></script>
+            <script src="script/anim.js"></script>
+            <script src="script/user-menu.js"></script>
+
+            
+
+<div id="grid"></div>
+
+ <div id="settings-modal" style="display: none; ...">
+<div id="settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: transparent;
+ display: flex; justify-content: center; align-items: center; z-index: 9999;">
+
+  <div style="background-color: #000000b2; color: white; padding: 20px; border-radius: 10px;
+    text-align: center; display: flex; flex-direction: column; align-items: center; min-width: 280px;">
+    
+    <h3>Выберите валюту</h3>
+
+    <select id="currency-select" style="margin-top: 10px; background-color: #2a5f9c; padding: 5px; border-radius: 5px; width: 100%;">
+      <option value="USD">USD</option>
+      <option value="INR">INR</option>
+      <option value="BRL">BRL</option>
+    </select>
+
+    <h3 style="margin-top: 20px;">Выберите язык</h3>
+
+    <select id="language-select" style="margin-top: 10px; background-color: #2a5f9c; padding: 5px; border-radius: 5px; width: 100%;">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="pt">Português</option>
+    </select>
+
+    <input type="number" id="balance-input" placeholder="Введите новый баланс"
+      style="margin-top: 10px; padding: 8px; border: none; border-radius: 5px; background-color: rgba(255,255,255,0.2);
+      color: white; text-align: center; width: 100%;">
+
+    <div style="margin-top: 20px; display: flex; flex-direction: column; width: 100%;">
+      <button id="apply-settings" style="padding: 8px; border: none; background-color: #37b0ce; color: white;
+        border-radius: 5px; margin-bottom: 10px;">Подтвердить</button>
+      <button id="cancel-settings" style="padding: 8px; border: none; background-color: #444; color: white;
+        border-radius: 5px;">Отмена</button>
+    </div>
+  </div>
+</div>
+
+</div>
+    </body>
+</html>
