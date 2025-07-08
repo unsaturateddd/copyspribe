@@ -42,11 +42,8 @@ async def cmd_listkeys(msg: Message):
     if not keys:
         await msg.answer("Нет ключей.")
     else:
-        lines = [f"{k[0]} — {k[1]} дн. — {'Использован' if k[4] else 'Не использован'}" for k in keys]
+        lines = [f"{k['key']} — {k['duration_days']} дн. — {'Использован' if k['used'] else 'Не использован'}" for k in keys]
         await msg.answer("\n".join(lines))
 
-async def main():
-    await dp.start_polling(bot)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+def start_bot():
+    asyncio.run(dp.start_polling(bot))
