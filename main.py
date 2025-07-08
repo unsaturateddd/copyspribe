@@ -1,7 +1,7 @@
 import threading
 import os
 from bot import start_bot
-from site import app
+from webapp import app
 
 def run_flask():
     port = int(os.environ.get("PORT", 5000))
